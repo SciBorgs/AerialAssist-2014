@@ -9,11 +9,9 @@ import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
 
 /**
- * The startApp method of this class is called by the VM to start the
- * application.
+ * State control, component checking, thread management.
  * 
- * The manifest specifies this class as MIDlet-1, which means it will
- * be selected for execution.
+ * @author Pawel, Sophomore
  */
 public class Start extends MIDlet {
 
