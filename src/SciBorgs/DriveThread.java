@@ -54,8 +54,8 @@ public class DriveThread {
         backleft.set(leftval);
         
         //For Gyro
-        boolean lButton = rightjoy.getRawButton(2);
-        boolean rButton = rightjoy.getRawButton(4);
+        boolean lButton = rightjoy.getRawButton(4);
+        boolean rButton = rightjoy.getRawButton(5);
         
         //Fast turning to go left
         if(lButton) {
