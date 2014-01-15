@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.Timer;
  * 
  * @author Freshmen #Freshmen4lifeyoloswag720noscopeswag #1sophmoreswag #swagalisious 
  */
-public class DriveThread {
+public class DriveThread extends Thread{
     
     //GYRO CODE
     private Gyro direction = new Gyro(1);
