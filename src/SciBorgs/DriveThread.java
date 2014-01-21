@@ -18,12 +18,8 @@ public class DriveThread extends Thread{
     
     //GYRO CODE
     private Gyro direction = new Gyro(1);
-    double angle;
+    double angle = direction.getAngle();
     
-    public double getAngle(){
-        return angle;
-    }
-     
     //Creating jaguars 
     Talon frontright = new Talon(1);
     Talon frontleft = new Talon(2);
