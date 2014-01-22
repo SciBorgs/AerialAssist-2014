@@ -16,42 +16,32 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class DriveThread extends Thread{
     
-    //GYRO CODE
-    private Gyro direction = new Gyro(1);
-    double angle = direction.getAngle();
+    Hardware hardware = new Hardware();
     
-    //Creating jaguars 
-    Talon frontright = new Talon(1);
-    Talon frontleft = new Talon(2);
-    Talon backright = new Talon(3);
-    Talon backleft = new Talon(4);
-      
-    //Creating joysticks
-    public Joystick rightjoy = new Joystick(1);
-    public Joystick leftjoy = new Joystick(2);
-               
+    double angle;
+              
     protected void iteration() {
                              
         //Gyro iteration      
-        angle = direction.getAngle();
+        angle = hardware.direction.getAngle();
         while(angle>=360){
             angle -= 360;
         }
     
         //Drive iteration
-        double rightval = rightjoy.getY();
-        double leftval = leftjoy.getY();
+        double rightval = hardware.rightjoy.getY();
+        double leftval = hardware.leftjoy.getY();
 
         //setting speed
-        frontright.set(-1 * rightval);
-        backright.set(-1 * rightval);
+        hardware.frontright.set(-1 * rightval);
+        hardware.backright.set(-1 * rightval);
 
-        frontleft.set(leftval);
-        backleft.set(leftval);
+        hardware.frontleft.set(leftval);
+        hardware.backleft.set(leftval);
         
         //For Gyro
-        boolean lButton = rightjoy.getRawButton(4);
-        boolean rButton = rightjoy.getRawButton(5);
+        boolean lButton = hardware.rightjoy.getRawButton(4);
+        boolean rButton = hardware.rightjoy.getRawButton(5);
         
         //Fast turning to go left
         if(lButton) {
@@ -61,10 +51,10 @@ public class DriveThread extends Thread{
                 leftval = -1;
                 rightval = 1;   
                         
-                backleft.set(leftval);
-                frontleft.set(leftval);
-                backright.set(-1 * rightval);
-                frontright.set(-1 * rightval);   
+                hardware.backleft.set(leftval);
+                hardware.frontleft.set(leftval);
+                hardware.backright.set(-1 * rightval);
+                hardware.frontright.set(-1 * rightval);   
             }
             Timer.delay(1);
             
@@ -72,10 +62,10 @@ public class DriveThread extends Thread{
                 leftval = -1;
                 rightval = 1;   
                         
-                backleft.set(leftval);
-                frontleft.set(leftval);
-                backright.set(-1 * rightval);
-                frontright.set(-1 * rightval); 
+                hardware.backleft.set(leftval);
+                hardware.frontleft.set(leftval);
+                hardware.backright.set(-1 * rightval);
+                hardware.frontright.set(-1 * rightval); 
             }
         }
     
@@ -87,10 +77,10 @@ public class DriveThread extends Thread{
                 leftval = 1;
                 rightval = -1;
                         
-                backleft.set(leftval);
-                frontleft.set(leftval);
-                backright.set(-1 * rightval);
-                frontright.set(-1 * rightval);
+                hardware.backleft.set(leftval);
+                hardware.frontleft.set(leftval);
+                hardware.backright.set(-1 * rightval);
+                hardware.frontright.set(-1 * rightval);
             }
             Timer.delay(1);
             
@@ -98,10 +88,10 @@ public class DriveThread extends Thread{
                 leftval = 1;
                 rightval = -1;
                         
-                backleft.set(leftval);
-                frontleft.set(leftval);
-                backright.set(-1 * rightval);
-                frontright.set(-1 * rightval);
+                hardware.backleft.set(leftval);
+                hardware.frontleft.set(leftval);
+                hardware.backright.set(-1 * rightval);
+                hardware.frontright.set(-1 * rightval);
             }
          }
        
@@ -109,7 +99,7 @@ public class DriveThread extends Thread{
       
     protected void turnon() {
         System.out.println("Turning on drive");
-        direction.reset();
+        hardware.direction.reset();
     }
       
     protected void turnoff() {
