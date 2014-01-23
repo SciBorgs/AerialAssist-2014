@@ -7,6 +7,7 @@ package SciBorgs;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 /**
  * Contains all robot components including access to driver station.
@@ -28,5 +29,8 @@ public class Hardware {
     //Joysticks 
     public static final Joystick rightjoy = new Joystick(1);
     public static final Joystick leftjoy = new Joystick(2);
+    
+    //Pistons
+    DoubleSolenoid piston = new DoubleSolenoid(1,2);
     
 }
