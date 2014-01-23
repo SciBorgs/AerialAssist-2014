@@ -5,7 +5,7 @@
  /* the project.                                                               */
  /*----------------------------------------------------------------------------*/
  
- package edu.wpi.first.wpilibj.templates;
+ package Sciborgs;
  
  
  import edu.wpi.first.wpilibj.SimpleRobot;
@@ -18,7 +18,7 @@
   * creating this project, you must also update the manifest file in the resource
   * directory.
   */
- public class Framework extends SimpleRobot {
+ public class ScibotManager extends SimpleRobot {
      /**
       * This function is called once each time the robot enters autonomous mode.
       */
