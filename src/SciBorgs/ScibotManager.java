@@ -37,6 +37,7 @@
          
          //Add all neccesary threads to the tele thread group
          //teleGroup.add(new ScibotThread(new <nameOfClass>()));
+         teleGroup.add(new ScibotThread(new Drive()));
          
          super.startCompetition();
          
