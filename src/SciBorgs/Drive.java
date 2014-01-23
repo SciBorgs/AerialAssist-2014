@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.Timer;
  * 
  * @author Freshmen  
  */
-public class DriveThread extends Thread{
+public class DriveThread extends ScibotThread {
     
     //joystick values for drive
     double rightval;
