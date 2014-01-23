@@ -17,16 +17,16 @@ import edu.wpi.first.wpilibj.Talon;
 public class Hardware {
     
     //Jaguars for drive
-    Talon frontright = new Talon(1);
-    Talon frontleft = new Talon(2);
-    Talon backright = new Talon(3);
-    Talon backleft = new Talon(4);
+    public static final Talon frontright = new Talon(1);
+    public static final Talon frontleft = new Talon(2);
+    public static final Talon backright = new Talon(3);
+    public static final Talon backleft = new Talon(4);
     
     //Gyro for drive code
-    public Gyro direction = new Gyro(1);
+    public static final Gyro direction = new Gyro(1);
     
     //Joysticks 
-    public Joystick rightjoy = new Joystick(1);
-    public Joystick leftjoy = new Joystick(2);
+    public static final Joystick rightjoy = new Joystick(1);
+    public static final Joystick leftjoy = new Joystick(2);
     
 }
