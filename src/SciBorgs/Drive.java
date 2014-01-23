@@ -14,13 +14,15 @@ import edu.wpi.first.wpilibj.Timer;
  * 
  * @author Freshmen  
  */
-public class DriveThread extends ScibotThread {
+public class Drive extends ScibotThread {
+    
+    Hardware hardware = new Hardware();
     
     //joystick values for drive
     double rightval;
     double leftval;
               
-    pubic void main() {
+    public void main() {
                              
         //Drive 
         rightval = hardware.rightjoy.getY();
