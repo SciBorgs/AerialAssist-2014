@@ -18,7 +18,23 @@ public class DriveThread extends Thread{
     
     Hardware hardware = new Hardware();
     
+    //joystick values for drive
+    double rightval;
+    double leftval;
+    
+    //Buttons for fast turning
+    boolean lButton;
+    boolean rButton;
+    
+    //angle for gyro
     double angle;
+    
+    //fast turning
+    double less;
+    double less1;
+    
+    //Button for piston
+   // boolean pressed1 = rightjoy.getRawButton(3);
               
     protected void iteration() {
                              
@@ -29,8 +45,8 @@ public class DriveThread extends Thread{
         }
     
         //Drive iteration
-        double rightval = hardware.rightjoy.getY();
-        double leftval = hardware.leftjoy.getY();
+        rightval = hardware.rightjoy.getY();
+        leftval = hardware.leftjoy.getY();
 
         //setting speed
         hardware.frontright.set(-1 * rightval);
@@ -40,12 +56,21 @@ public class DriveThread extends Thread{
         hardware.backleft.set(leftval);
         
         //For Gyro
-        boolean lButton = hardware.rightjoy.getRawButton(4);
-        boolean rButton = hardware.rightjoy.getRawButton(5);
+        lButton = hardware.rightjoy.getRawButton(4);
+        rButton = hardware.rightjoy.getRawButton(5);
+        
+        ////piston code
+        //DoubleSolenoid.Value opened = hardware.piston.get();
+        
+        //if(pressed1 && opened == DoubleSolenoid.Value.kReverse) {
+            //piston.set(DoubleSolenoid.Value.kForward);
+        //} else if(pressed1 && opened == DoubleSolenoid.Value.kForward) {
+           //piston.set(DoubleSolenoid.Value.kReverse);
+        //}
         
         //Fast turning to go left
         if(lButton) {
-            double less = angle + 315;
+            less = angle + 315;
             
             while (angle < less){
                 leftval = -1;
@@ -71,7 +96,7 @@ public class DriveThread extends Thread{
     
         //Fast turning to turn right
         if(rButton) {
-            double less1 = angle + 45;
+            less1 = angle + 45;
             
             while (angle < less1){
                 leftval = 1;
