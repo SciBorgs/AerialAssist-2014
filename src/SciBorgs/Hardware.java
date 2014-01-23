@@ -31,6 +31,6 @@ public class Hardware {
     public static final Joystick leftjoy = new Joystick(2);
     
     //Pistons
-    DoubleSolenoid piston = new DoubleSolenoid(1,2);
+    public static final DoubleSolenoid piston = new DoubleSolenoid(1,2);
     
 }
