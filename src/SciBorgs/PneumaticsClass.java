@@ -18,8 +18,17 @@ public class PneumaticsClass {
     
     //Button for piston
    boolean pressed1 = hardware.rightjoy.getRawButton(3);
-    
+   boolean pressed2 = hardware.rightjoy.getRawButton(7);
+   boolean pressed3 = hardware.rightjoy.getRawButton(8);
     public void iteration() {
+        
+        //compressor code
+        if (pressed2 && hardware.compress.getPressureSwitchValue() == false){
+            hardware.compress.start();       
+        }
+        if (hardware.compress.getPressureSwitchValue() == true || pressed3){
+            hardware.compress.stop();
+        }
         
         //piston code
         DoubleSolenoid.Value opened = hardware.piston.get();
