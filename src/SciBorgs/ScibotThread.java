@@ -10,7 +10,7 @@ package edu.wpi.first.wpilibj.templates;
  *
  * @author Sophomores
  */
-public class ScibotThread implements Runnable {
+public abstract class ScibotThread implements Runnable {
     
     private Thread thread;
     
@@ -22,16 +22,10 @@ public class ScibotThread implements Runnable {
     public void run() {
       while(!Thread.currentThread.isInterrupted()) {
         main();
-        try {
-          Thread.sleep(10);
-        }
-        catch (InterruptedException e) {}
      	}
     }
     
-    public void main() {
-    	//Override this in whatever class extends ScibotThread
-    }
+    public abstract void main() {}
     
     public void stop() {
     	thread.interupt();
