@@ -5,16 +5,15 @@ package SciBorgs;
  * @author meydany, luzono
  */
 public class GyroClass{
-    
-    Hardware hardware = new Hardware();
+
     double angle;
     
     public void startup(){
-        hardware.direction.reset();
+        Hardware.gyro.reset();
     }
     
     protected void iteration(){
-        angle = hardware.direction.getAngle();
+        angle = Hardware.gyro.getAngle();
         
         while (angle>=360){
             angle -= 360;
