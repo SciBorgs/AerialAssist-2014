@@ -26,7 +26,7 @@ public class Hardware {
     public static final Talon backleft = new Talon(4);
     
     //Gyro for drive code
-    public static final Gyro direction = new Gyro(1);
+    public static final Gyro gyro = new Gyro(1);
     
     //Joysticks 
     public static final Joystick rightjoy = new Joystick(1);
@@ -38,7 +38,4 @@ public class Hardware {
     
     //Ultrasonic sensor
     public static final Ultrasonic sensor = new Ultrasonic(1, 2);
-    
-    //gyro
-    public static final GyroClass gyro = new GyroClass();
 }
