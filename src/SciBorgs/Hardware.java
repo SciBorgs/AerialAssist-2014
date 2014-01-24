@@ -37,8 +37,8 @@ public class Hardware {
     public static final Compressor compress = new Compressor(1, 2);
     
     //Ultrasonic sensor
-    Ultrasonic sensor = new Ultrasonic(1, 2);
+    public static final Ultrasonic sensor = new Ultrasonic(1, 2);
     
     //gyro
-    GyroClass gyro = new GyroClass();
+    public static final GyroClass gyro = new GyroClass();
 }
