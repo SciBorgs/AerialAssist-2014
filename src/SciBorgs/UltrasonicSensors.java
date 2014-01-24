@@ -14,7 +14,10 @@ import edu.wpi.first.wpilibj.Ultrasonic;
  */
 public class UltrasonicSensors {
     
-    Ultrasonic sensor = new Ultrasonic(1,2);
+    int ping = 1; //Going to change
+    int echo = 2; //Going to change
+    
+    Ultrasonic sensor = new Ultrasonic(ping, echo);
     
     public void iteration() {
     
