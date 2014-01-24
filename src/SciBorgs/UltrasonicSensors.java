@@ -24,9 +24,10 @@ public class UltrasonicSensors {
         
         if(hardware.sensor.isEnabled() == true && hardware.sensor.isRangeValid() == true) {
             return hardware.sensor.getRangeInches();
+        } else {
+            return 0;
         }
-        
-        return 0;
+    
     }
     
     public void turnOff() {
