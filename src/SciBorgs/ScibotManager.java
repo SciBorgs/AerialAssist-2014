@@ -18,11 +18,12 @@
   * creating this project, you must also update the manifest file in the resource
   * directory.
   */
- public class ScibotManager extends SimpleRobot {
+ public class ScibotManager extends SimpleRobot implements Runnable{
      /**
       * This function is called once each time the robot enters autonomous mode.
       */
      
+     private Thread thread; //Thread to manage cpu/bandwidth usage
      private Vector teleGroup = new Vector();
      private Vector autoGroup = new Vector();
      
@@ -40,6 +41,8 @@
          teleGroup.add(new ScibotThread(new Drive()));
          
          super.startCompetition();
+         thread = new Thread(this);
+         thread.start();
          
      }
      
@@ -62,6 +65,15 @@
         if(!((Boolean) teleGroup.firstElement()).booleanValue()){
             startGroup(teleGroup);
         } 
+     }
+     
+     public void run() {
+      while(!thread.isInterrupted()) {
+       try {
+        Thread.sleep(1);
+       }
+       catch (InteruptedException e) {}
+      }
      }
      
      public void startGroup(Vector group){
