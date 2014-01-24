@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.Ultrasonic;
 
 /**
  * Contains all robot components including access to driver station.
@@ -32,5 +34,11 @@ public class Hardware {
     
     //Pistons
     public static final DoubleSolenoid piston = new DoubleSolenoid(1,2);
+    public static final Compressor compress = new Compressor(1, 2);
     
+    //Ultrasonic sensor
+    Ultrasonic sensor = new Ultrasonic(1, 2);
+    
+    //gyro
+    GyroClass gyro = new GyroClass();
 }

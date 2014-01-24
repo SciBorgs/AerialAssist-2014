@@ -6,7 +6,7 @@ package SciBorgs;
 
 
 import edu.wpi.first.wpilibj.Timer;
-
+import edu.wpi.first.wpilibj.RobotDrive;
 /**
  * Teleop code.
  * 
@@ -15,7 +15,8 @@ import edu.wpi.first.wpilibj.Timer;
 public class DriveThread extends Thread{
     
     Hardware hardware = new Hardware();
-    GyroClass gyro = new GyroClass();
+    
+    RobotDrive drive = new RobotDrive(2, 4, 1, 3);
     
     //joystick values for drive
     double rightval;
@@ -35,12 +36,7 @@ public class DriveThread extends Thread{
         rightval = hardware.rightjoy.getY();
         leftval = hardware.leftjoy.getY();
 
-        //setting speed
-        hardware.frontright.set(-1 * rightval);
-        hardware.backright.set(-1 * rightval);
-
-        hardware.frontleft.set(leftval);
-        hardware.backleft.set(leftval);
+        drive.tankDrive(leftval, rightval);
         
         //For Gyro
         lButton = hardware.rightjoy.getRawButton(4);
@@ -48,9 +44,9 @@ public class DriveThread extends Thread{
          
         //Fast turning to go left
         if(lButton) {
-            less = gyro.returnAngle() + 315;
+            less = hardware.gyro.returnAngle() + 315;
             
-            while (gyro.returnAngle() < less){
+            while (hardware.gyro.returnAngle() < less){
                 leftval = -1;
                 rightval = 1;   
                         
@@ -74,9 +70,9 @@ public class DriveThread extends Thread{
     
         //Fast turning to turn right
         if(rButton) {
-            less1 = gyro.returnAngle() + 45;
+            less1 = hardware.gyro.returnAngle() + 45;
             
-            while (gyro.returnAngle() < less1){
+            while (hardware.gyro.returnAngle() < less1){
                 leftval = 1;
                 rightval = -1;
                         
@@ -103,10 +99,13 @@ public class DriveThread extends Thread{
     protected void turnon() {
         System.out.println("Turning on drive");
         hardware.direction.reset();
+        hardware.sensor.setEnabled(true);
     }
       
     protected void turnoff() {
         System.out.println("Shutting down drive");
+        hardware.sensor.setEnabled(false);
+        hardware.compress.stop();
     }
     
 }
