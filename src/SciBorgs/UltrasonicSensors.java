@@ -18,7 +18,6 @@ public class UltrasonicSensors {
     
     int ping = 1; //Going to change
     int echo = 2; //Going to change
-    int button = 5; //Going to change
        
     Ultrasonic sensor = new Ultrasonic(ping, echo);
     
