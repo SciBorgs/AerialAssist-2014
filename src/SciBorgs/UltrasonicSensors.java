@@ -19,7 +19,10 @@ public class UltrasonicSensors {
     
     Ultrasonic sensor = new Ultrasonic(ping, echo);
     
-    public void iteration() {
-    
+    public double getRange(){
+        if (sensor.isEnabled() == true && sensor.isRangeValid() == true){
+            return sensor.getRangeInches();
+        }
+        return 0;
     }
 }
