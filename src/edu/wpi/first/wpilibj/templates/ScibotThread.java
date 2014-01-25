@@ -17,11 +17,13 @@ public abstract class ScibotThread implements Runnable {
     public void start() {
       thread = new Thread(this);
       thread.start();
+      System.out.println("Thread started");
     }
     
     public void run() {
-      while(!Thread.currentThread().isAlive()) {
+      while(Thread.currentThread().isAlive()) {
         main();
+        //System.out.println("Running");
      	}
     }
     

@@ -54,6 +54,7 @@
         } 
         if(!((Boolean) autoGroup[0]).booleanValue()){
             startGroup(autoGroup);
+            System.out.println("Autogroup started");
         } 
      }
  
@@ -66,13 +67,14 @@
         } 
         if(!((Boolean) teleGroup[0]).booleanValue()){
             startGroup(teleGroup);
+            System.out.println("Telegroup started");
         } 
      }
      
      public void run() {
       while(!thread.isAlive()) {
        try {
-        Thread.sleep(1);
+        Thread.sleep(10);
        }
        catch (InterruptedException e) {}
       }
