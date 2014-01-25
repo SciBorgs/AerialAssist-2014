@@ -14,16 +14,16 @@ import edu.wpi.first.wpilibj.Ultrasonic;
  */
 public class UltrasonicSensors {
     
-    Hardware hardware = new Hardware();
+   
     
     public void turnOn() {
-        hardware.sensor.setEnabled(true);
+        Hardware.sensor.setEnabled(true);
     }
     
     public double getRange(){
         
-        if(hardware.sensor.isEnabled() == true && hardware.sensor.isRangeValid() == true) {
-            return hardware.sensor.getRangeInches();
+        if(Hardware.sensor.isEnabled() && Hardware.sensor.isRangeValid()) {
+            return Hardware.sensor.getRangeInches();
         } else {
             return 0;
         }
@@ -31,6 +31,6 @@ public class UltrasonicSensors {
     }
     
     public void turnOff() {
-        hardware.sensor.setEnabled(false);
+        Hardware.sensor.setEnabled(false);
     }
 }
