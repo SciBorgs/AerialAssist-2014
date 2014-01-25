@@ -24,21 +24,23 @@
       */
      
      private Thread thread; //Thread to manage cpu/bandwidth usage
-     private Vector teleGroup = new Vector();
-     private Vector autoGroup = new Vector();
+     
+     //Increase the array size when threads are added
+     private Object[] teleGroup = new Object[2];
+     private Object[] autoGroup = new Object[2];
      
      public void startCompetition() {
          //Establish booleans to represent whether the thread group is running, all classes need to extend
          //ScibotThread
-         teleGroup.setElementAt(new Boolean(false), 0);
-         autoGroup.setElementAt(new Boolean(false), 0);
+         teleGroup[0] = new Boolean(false);
+         autoGroup[0] = new Boolean(false);
          
          //Add all neccesary threads to the auto thread group
          //autoGroup.addElement(new <nameOfClass>());
          
          //Add all neccesary threads to the tele thread group
          //teleGroup.addElement(new <nameOfClass>());
-         teleGroup.addElement(new Drive());
+         teleGroup[1] = new Drive();
          
          super.startCompetition();
          thread = new Thread(this);
@@ -47,10 +49,10 @@
      }
      
      public void autonomous() {
-        if(((Boolean) teleGroup.firstElement()).booleanValue()){
+        if(((Boolean) teleGroup[0]).booleanValue()){
             stopGroup(teleGroup);
         } 
-        if(!((Boolean) autoGroup.firstElement()).booleanValue()){
+        if(!((Boolean) autoGroup[0]).booleanValue()){
             startGroup(autoGroup);
         } 
      }
@@ -59,10 +61,10 @@
       * This function is called once each time the robot enters operator control.
       */
      public void operatorControl() {
-        if(((Boolean) autoGroup.firstElement()).booleanValue()){
+        if(((Boolean) autoGroup[0]).booleanValue()){
             stopGroup(autoGroup);
         } 
-        if(!((Boolean) teleGroup.firstElement()).booleanValue()){
+        if(!((Boolean) teleGroup[0]).booleanValue()){
             startGroup(teleGroup);
         } 
      }
@@ -76,17 +78,17 @@
       }
      }
      
-     public void startGroup(Vector group){
-         for(int i = 1; i < group.size(); i++){
-            ((ScibotThread) group.elementAt(i)).start();
+     public void startGroup(Object[] group){
+         for(int i = 1; i < group.length; i++){
+            ((ScibotThread) group[i]).start();
          }
-         group.setElementAt(new Boolean(true), 0);
+         group[0] = new Boolean(true);
      }
      
-     public void stopGroup(Vector group){
-        for(int i = 1; i < group.size(); i++){
-            ((ScibotThread) group.elementAt(i)).stop();
+     public void stopGroup(Object[] group){
+        for(int i = 1; i < group.length; i++){
+            ((ScibotThread) group[i]).stop();
         }
-        group.setElementAt(new Boolean(false), 0);
+        group[0] = new Boolean(true);
      }
  }
