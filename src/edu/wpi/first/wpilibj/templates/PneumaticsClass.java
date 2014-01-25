@@ -14,29 +14,27 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
  */
 public class PneumaticsClass {
     
-   Hardware hardware = new Hardware();
-    
     //Button for piston
-   boolean pressed1 = hardware.rightjoy.getRawButton(3);
-   boolean pressed2 = hardware.rightjoy.getRawButton(7);
-   boolean pressed3 = hardware.rightjoy.getRawButton(8);
+   boolean pressed1 = Hardware.rightjoy.getRawButton(3);
+   boolean pressed2 = Hardware.rightjoy.getRawButton(7);
+   boolean pressed3 = Hardware.rightjoy.getRawButton(8);
     public void iteration() {
         
         //compressor code
-        if (pressed2 && hardware.compress.getPressureSwitchValue() == false){
-            hardware.compress.start();       
+        if (pressed2 && Hardware.compress.getPressureSwitchValue() == false){
+            Hardware.compress.start();       
         }
-        if (hardware.compress.getPressureSwitchValue() == true || pressed3){
-            hardware.compress.stop();
+        if (Hardware.compress.getPressureSwitchValue() == true || pressed3){
+            Hardware.compress.stop();
         }
         
         //piston code
-        DoubleSolenoid.Value opened = hardware.piston.get();
+        DoubleSolenoid.Value opened = Hardware.piston.get();
         
         if(pressed1 && opened == DoubleSolenoid.Value.kReverse) {
-            hardware.piston.set(DoubleSolenoid.Value.kForward);
+            Hardware.piston.set(DoubleSolenoid.Value.kForward);
         } else if(pressed1 && opened == DoubleSolenoid.Value.kForward) {
-           hardware.piston.set(DoubleSolenoid.Value.kReverse);
+           Hardware.piston.set(DoubleSolenoid.Value.kReverse);
         
         }
     
