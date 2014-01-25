@@ -25,7 +25,7 @@ public class VisionThread extends SimpleRobot {
         camera.writeExposurePriority(AxisCamera.ExposurePriorityT.frameRate);//NEED THIS
         camera.writeColorLevel(100);
         camera.writeBrightness(50);
-        camera.writeResolution(AxisCamera.ResolutionT.k800x600);
+        camera.writeResolution(AxisCamera.ResolutionT.k640x480); //Needs to be corrected
         System.out.println("Camera");
         cc = new CriteriaCollection();      // create the criteria for the particle filter
         System.out.println("CC");
