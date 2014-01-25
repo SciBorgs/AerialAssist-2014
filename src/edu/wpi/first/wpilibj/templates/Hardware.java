@@ -22,24 +22,36 @@ import edu.wpi.first.wpilibj.Ultrasonic;
 public class Hardware {
     
     //Jaguars for drive
-    public static final Jaguar frontRightTalon = new Jaguar(1);
-    public static final Jaguar frontLeftTalon = new Jaguar(2);
-    public static final Jaguar backRightTalon = new Jaguar(3);
-    public static final Jaguar backLeftTalon = new Jaguar(4);
+    public static Jaguar frontRightTalon;
+    public static Jaguar frontLeftTalon;
+    public static Jaguar backRightTalon;
+    public static Jaguar backLeftTalon;
+    
+    //Robotdrive
+//    public static RobotDrive drive = new RobotDrive(2, 4, 1, 3);
     
     //Gyro for drive code
-    //public static final Gyro gyro = new Gyro(1);
+    //public static Gyro gyro = new Gyro(1);
     
     //Joysticks 
-    public static final Joystick rightJoy = new Joystick(1);
-    public static final Joystick leftJoy = new Joystick(2);
+    public static Joystick rightJoy;
+    public static Joystick leftJoy;
     
     //Pistons
-    //public static final DoubleSolenoid piston = new DoubleSolenoid(1,2);
-    //public static final Compressor compress = new Compressor(1, 2);
+    //public static DoubleSolenoid piston = new DoubleSolenoid(1,2);
+    //public static Compressor compress = new Compressor(1, 2);
     
     //Ultrasonic sensor
-   //public static final Ultrasonic leftSensor = new Ultrasonic(1, 2);
-   // public static final Ultrasonic rightSensor = new Ultrasonic(3, 4);
-
+   //public static Ultrasonic leftSensor = new Ultrasonic(1, 2);
+   // public static Ultrasonic rightSensor = new Ultrasonic(3, 4);
+    public void Hardware() {
+//        drive = new RobotDrive(2, 4, 1, 3);
+        rightJoy = new Joystick(1);
+        leftJoy = new Joystick(2);
+        
+        frontRightTalon = new Jaguar(1);
+        frontLeftTalon = new Jaguar(2);
+        backRightTalon = new Jaguar(3);
+        backLeftTalon = new Jaguar(4);
+    }
 }

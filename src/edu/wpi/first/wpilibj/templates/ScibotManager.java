@@ -29,7 +29,11 @@
      private Object[] teleGroup = new Object[2];
      private Object[] autoGroup = new Object[1];
      
-     public void startCompetition() {
+     public static Hardware hardware;
+     
+     public void robotInit() {
+         hardware = new Hardware();
+         
          //Establish booleans to represent whether the thread group is running, all classes need to extend
          //ScibotThread
          teleGroup[0] = new Boolean(false);
@@ -42,7 +46,6 @@
          //teleGroup.addElement(new <nameOfClass>());
          teleGroup[1] = new Drive();
          
-         super.startCompetition();
          thread = new Thread(this);
          thread.start();
          
