@@ -16,9 +16,9 @@ public class DriveThread extends ScibotThread{
     
     RobotDrive drive = new RobotDrive(2, 4, 1, 3);
     
-    //joystick values for drive
-    double rightval;
-    double leftval;
+    //Joystick Values for drive
+    double rightVal;
+    double leftVal;
     
     //Buttons for fast turning
     boolean lButton;
@@ -28,31 +28,31 @@ public class DriveThread extends ScibotThread{
     public void main() {
 
         //Drive iteration
-        rightval = Hardware.rightjoy.getY();
-        leftval = Hardware.leftjoy.getY();
+        rightVal = Hardware.rightJoy.getY();
+        leftVal = Hardware.leftJoy.getY();
 
-        drive.tankDrive(leftval, rightval);
+        drive.tankDrive(leftVal, rightVal);
         
         //For Gyro
-        lButton = Hardware.rightjoy.getRawButton(4);
-        rButton = Hardware.rightjoy.getRawButton(5);
+        lButton = Hardware.rightJoy.getRawButton(4);
+        rButton = Hardware.rightJoy.getRawButton(5);
         
         //Fast turning to go left
         if(lButton) {
             Hardware.gyro.reset();
             
             while(Hardware.gyro.getAngle() == 0 || Hardware.gyro.getAngle() >= 315) {
-                rightval = 1;
-                leftval = -1;
+                rightVal = 1;
+                leftVal = -1;
 
-                drive.tankDrive(leftval, rightval*-1);
+                drive.tankDrive(leftVal, rightVal*-1);
             }
             
             while(lButton) {
-                rightval = 1;
-                leftval = -1;
+                rightVal = 1;
+                leftVal = -1;
 
-                drive.tankDrive(leftval, rightval*-1);
+                drive.tankDrive(leftVal, rightVal*-1);
             }
             
             Hardware.gyro.reset();
@@ -62,17 +62,17 @@ public class DriveThread extends ScibotThread{
             Hardware.gyro.reset();
             
             while(Hardware.gyro.getAngle() <= 45) {
-                rightval = -1;
-                leftval = 1;
+                rightVal = -1;
+                leftVal = 1;
 
-                drive.tankDrive(leftval, rightval*-1);
+                drive.tankDrive(leftVal, rightVal*-1);
             }
             
             while(rButton) {
-                rightval = -1;
-                leftval = 1;
+                rightVal = -1;
+                leftVal = 1;
 
-                drive.tankDrive(leftval, rightval*-1);
+                drive.tankDrive(leftVal, rightVal*-1);
             }
             
             Hardware.gyro.reset();

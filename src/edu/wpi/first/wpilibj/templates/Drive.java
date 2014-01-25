@@ -16,23 +16,21 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class Drive extends ScibotThread {
     
-    Hardware hardware = new Hardware();
-    
-    //joystick values for drive
-    double rightval;
-    double leftval;
+    //joystick Values for drive
+    double rightVal;
+    double leftVal;
               
     public void main() {
                              
         //Drive 
-        rightval = hardware.rightjoy.getY();
-        leftval = hardware.leftjoy.getY();
+        rightVal = Hardware.rightJoy.getY();
+        leftVal = Hardware.leftJoy.getY();
 
         //Setting speed
-        hardware.frontright.set(-1 * rightval);
-        hardware.backright.set(-1 * rightval);
+        Hardware.frontRightTalon.set(-1 * rightVal);
+        Hardware.backRightTalon.set(-1 * rightVal);
 
-        hardware.frontleft.set(leftval);
-        hardware.backleft.set(leftval);
+        Hardware.frontLeftTalon.set(leftVal);
+        Hardware.backLeftTalon.set(leftVal);
     }
 }
