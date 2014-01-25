@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
  * 
  * @author Freshmen  
  */
-public class DriveThread extends Thread{
+public class DriveThread extends ScibotThread{
     
     RobotDrive drive = new RobotDrive(2, 4, 1, 3);
     
@@ -25,7 +25,7 @@ public class DriveThread extends Thread{
     boolean rButton;
 
               
-    protected void iteration() {
+    public void main() {
 
         //Drive iteration
         rightval = Hardware.rightjoy.getY();
@@ -81,13 +81,13 @@ public class DriveThread extends Thread{
        
     }
       
-    protected void turnon() {
+    public void turnon() {
         System.out.println("Turning on drive");
         Hardware.gyro.reset();
         Hardware.sensor.setEnabled(true);
     }
       
-    protected void turnoff() {
+    public void turnoff() {
         System.out.println("Shutting down drive");
         Hardware.sensor.setEnabled(false);
         Hardware.compress.stop();
