@@ -20,14 +20,14 @@ public abstract class ScibotThread implements Runnable {
     }
     
     public void run() {
-      while(!Thread.currentThread.isInterrupted()) {
+      while(!Thread.currentThread().isAlive()) {
         main();
      	}
     }
     
-    public abstract void main() {}
+    public abstract void main();
     
     public void stop() {
-    	thread.interupt();
+    	thread.interrupt();
     }
 }

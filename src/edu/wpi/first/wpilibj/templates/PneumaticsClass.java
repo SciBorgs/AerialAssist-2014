@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package SciBorgs;
+package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 

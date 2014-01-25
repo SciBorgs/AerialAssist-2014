@@ -5,7 +5,7 @@
  /* the project.                                                               */
  /*----------------------------------------------------------------------------*/
  
- package Sciborgs;
+ package edu.wpi.first.wpilibj.templates;
  
  
  import edu.wpi.first.wpilibj.SimpleRobot;
@@ -34,11 +34,11 @@
          autoGroup.setElementAt(new Boolean(false), 0);
          
          //Add all neccesary threads to the auto thread group
-         //autoGroup.add(new ScibotThread(new <nameOfClass>()));
+         //autoGroup.addElement(new <nameOfClass>());
          
          //Add all neccesary threads to the tele thread group
-         //teleGroup.add(new ScibotThread(new <nameOfClass>()));
-         teleGroup.add(new ScibotThread(new Drive()));
+         //teleGroup.addElement(new <nameOfClass>());
+         teleGroup.addElement(new Drive());
          
          super.startCompetition();
          thread = new Thread(this);
@@ -68,11 +68,11 @@
      }
      
      public void run() {
-      while(!thread.isInterrupted()) {
+      while(!thread.isAlive()) {
        try {
         Thread.sleep(1);
        }
-       catch (InteruptedException e) {}
+       catch (InterruptedException e) {}
       }
      }
      
