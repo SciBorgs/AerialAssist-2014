@@ -27,7 +27,7 @@
      
      //Increase the array size when threads are added
      private Object[] teleGroup = new Object[2];
-     private Object[] autoGroup = new Object[2];
+     private Object[] autoGroup = new Object[1];
      
      public void startCompetition() {
          //Establish booleans to represent whether the thread group is running, all classes need to extend
