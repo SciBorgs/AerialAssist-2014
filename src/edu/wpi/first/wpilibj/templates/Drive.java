@@ -4,6 +4,7 @@
  */
 package edu.wpi.first.wpilibj.templates;
 
+import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Joystick;
@@ -22,12 +23,14 @@ public class Drive extends ScibotThread {
     double leftVal;
               
     
-    public void main() {
-                             
+    public void main() {   
         //Drive 
         rightVal = Hardware.rightJoy.getY();
         leftVal = Hardware.leftJoy.getY();
-
+        
+        Hardware.dLCD.println(DriverStationLCD.Line.kUser6, 1, String.valueOf(leftVal) + " " + String.valueOf(rightVal));
+        Hardware.dLCD.updateLCD();
+        
 //        Hardware.drive.tankDrive(leftVal, rightVal);
         Hardware.frontRightJaguar.set(leftVal);
         Hardware.backRightJaguar.set(leftVal);

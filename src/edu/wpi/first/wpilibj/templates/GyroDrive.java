@@ -5,11 +5,13 @@
  */
 package edu.wpi.first.wpilibj.templates;
 
+import edu.wpi.first.wpilibj.DriverStationLCD;
+
 /**
  *
  * @author Freshman
  */
-public class GyroDrive {
+public class GyroDrive extends ScibotThread {
 
     //Constant variables for ANGLE
     public static final int ANGLE = 45;
@@ -24,7 +26,8 @@ public class GyroDrive {
     boolean check = true;
 
     public void main() {
-        
+        Hardware.dLCD.println(DriverStationLCD.Line.kUser6, 1, String.valueOf(Hardware.gyro.getAngle()));
+        Hardware.dLCD.updateLCD();
         /*
         if (check) {
 
