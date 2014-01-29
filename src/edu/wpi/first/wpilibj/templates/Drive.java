@@ -25,21 +25,21 @@ public class Drive extends ScibotThread {
     public void main() {
                              
         //Drive 
-        rightVal = ScibotManager.hardware.rightJoy.getY();
-        leftVal = ScibotManager.hardware.leftJoy.getY();
+        rightVal = Hardware.rightJoy.getY();
+        leftVal = Hardware.leftJoy.getY();
 
-//        ScibotManager.hardware.drive.tankDrive(leftVal, rightVal);
-        ScibotManager.hardware.frontRightTalon.set(leftVal);
-        ScibotManager.hardware.backRightTalon.set(leftVal);
-        ScibotManager.hardware.frontLeftTalon.set(-rightVal);
-        ScibotManager.hardware.backLeftTalon.set(-rightVal);
+//        Hardware.drive.tankDrive(leftVal, rightVal);
+        Hardware.frontRightJaguar.set(leftVal);
+        Hardware.backRightJaguar.set(leftVal);
+        Hardware.frontLeftJaguar.set(-rightVal);
+        Hardware.backLeftJaguar.set(-rightVal);
         
         
         //Setting speed
-//        Hardware.frontRightTalon.set(-1 * rightVal);
-//        Hardware.backRightTalon.set(-1 * rightVal);
+//        Hardware.frontRightJaguar.set(-1 * rightVal);
+//        Hardware.backRightJaguar.set(-1 * rightVal);
 //
-//        Hardware.frontLeftTalon.set(leftVal);
-//        Hardware.backLeftTalon.set(leftVal);
+//        Hardware.frontLeftJaguar.set(leftVal);
+//        Hardware.backLeftJaguar.set(leftVal);
     }
 }

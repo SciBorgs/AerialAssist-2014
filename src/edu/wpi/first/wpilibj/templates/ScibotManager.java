@@ -8,6 +8,9 @@
  package edu.wpi.first.wpilibj.templates;
  
  
+import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.Joystick;
  import edu.wpi.first.wpilibj.SimpleRobot;
  import java.util.*;
  
@@ -26,13 +29,20 @@
      private Thread thread; //Thread to manage cpu/bandwidth usage
      
      //Increase the array size when threads are added
-     private Object[] teleGroup = new Object[2];
+     private Object[] teleGroup = new Object[3];
      private Object[] autoGroup = new Object[1];
      
-     public static Hardware hardware;
-     
      public void robotInit() {
-         hardware = new Hardware();
+        Hardware.rightJoy = new Joystick(1);
+        Hardware.leftJoy = new Joystick(2);
+        
+        Hardware.frontRightJaguar = new Jaguar(4);
+        Hardware.backRightJaguar = new Jaguar(3);
+        Hardware.frontLeftJaguar = new Jaguar(1);
+        Hardware.backLeftJaguar = new Jaguar(2);
+        
+        Hardware.gyro = new Gyro(1);
+         
          
          //Establish booleans to represent whether the thread group is running, all classes need to extend
          //ScibotThread
@@ -45,6 +55,7 @@
          //Add all neccesary threads to the tele thread group
          //teleGroup.addElement(new <nameOfClass>());
          teleGroup[1] = new Drive();
+         teleGroup[2] = new GyroDrive();
          
          thread = new Thread(this);
          thread.start();
