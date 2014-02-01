@@ -22,6 +22,9 @@ public class Drive extends ScibotThread {
     double rightVal;
     double leftVal;
               
+    public void start() {
+        Hardware.drive.tankDrive(Hardware.leftJoy, Hardware.rightJoy);
+    }
     
     public void main() {   
         //Drive 
@@ -32,10 +35,11 @@ public class Drive extends ScibotThread {
         Hardware.dLCD.updateLCD();
         
 //        Hardware.drive.tankDrive(leftVal, rightVal);
-        Hardware.frontRightJaguar.set(leftVal);
-        Hardware.backRightJaguar.set(leftVal);
-        Hardware.frontLeftJaguar.set(-rightVal);
-        Hardware.backLeftJaguar.set(-rightVal);
+//        Hardware.frontRightJaguar.set(leftVal);
+//        Hardware.backRightJaguar.set(leftVal);
+//        Hardware.frontLeftJaguar.set(-rightVal);
+//        Hardware.backLeftJaguar.set(-rightVal);
+        
         
         
         //Setting speed
