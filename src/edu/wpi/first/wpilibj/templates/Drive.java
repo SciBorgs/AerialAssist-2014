@@ -11,10 +11,22 @@ public class Drive extends ScibotThread {
     
     double rightVal, leftVal;
     
-    public void main() {   
-        //Drive
-        rightVal = ScibotManager.hardware.rightJoy.getY();
-        leftVal = ScibotManager.hardware.leftJoy.getY();
+    public void function() {   
+        //Drive 
+        rightVal = Hardware.rightJoy.getY();
+        leftVal = Hardware.leftJoy.getY();
+        
+        leftVal = leftVal*Math.abs(leftVal);
+        rightVal = rightVal*Math.abs(rightVal);
+        
+        if(leftVal > 1) leftVal = 1;
+        if(leftVal < -1) leftVal = -1;
+        if(rightVal > 1) rightVal = 1;
+        if(rightVal < -1) rightVal = -1;
+        
+        Hardware.dLCD.println(DriverStationLCD.Line.kUser1, 1, "Right: " + String.valueOf(rightVal));
+        Hardware.dLCD.println(DriverStationLCD.Line.kUser2, 1, "Left: " + String.valueOf(leftVal));
+        System.out.println(rightVal + ", " + leftVal);
         
         if(rightVal > 1) rightVal = 1;
         if(rightVal < -1) rightVal = -1;
@@ -23,14 +35,12 @@ public class Drive extends ScibotThread {
 
         rightVal *= Math.abs(rightVal);
         leftVal *= Math.abs(leftVal);
-
-        ScibotManager.hardware.frontRightTalon.set(rightVal);
-        ScibotManager.hardware.backRightTalon.set(rightVal);
-        ScibotManager.hardware.frontLeftTalon.set(-leftVal);
-        ScibotManager.hardware.backLeftTalon.set(-leftVal);
         
-        Hardware.dLCD.println(DriverStationLCD.Line.kUser6, 1, String.valueOf(Hardware.leftJoy.getAxis(Joystick.AxisType.kY)) + " " + String.valueOf(Hardware.rightJoy.getAxis(Joystick.AxisType.kY)));
-        Hardware.dLCD.updateLCD();
-
+//        Hardware.drive.tankDrive(leftVal, rightVal);
+        Hardware.frontRightTalon.set(rightVal);
+        Hardware.backRightTalon.set(rightVal);
+        Hardware.frontLeftTalon.set(-leftVal);
+        Hardware.backLeftTalon.set(-leftVal);
+        
     }
 }
