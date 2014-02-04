@@ -30,7 +30,7 @@ public class Hardware {
     public static Talon backLeftTalon;
     
     //Robotdrive
-    public static RobotDrive drive = new RobotDrive(2,4,1,3);
+    // public static RobotDrive drive = new RobotDrive(2,4,1,3);
     
     //Gyro for drive code
     public static Gyro gyro;
