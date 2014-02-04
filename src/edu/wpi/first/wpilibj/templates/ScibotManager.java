@@ -10,7 +10,8 @@
  
 import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.Gyro;
-import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Joystick;
  import edu.wpi.first.wpilibj.SimpleRobot;
  import java.util.*;
@@ -37,12 +38,14 @@ import edu.wpi.first.wpilibj.Joystick;
         Hardware.rightJoy = new Joystick(1);
         Hardware.leftJoy = new Joystick(2);
         
-        Hardware.frontRightJaguar = new Jaguar(4);
-        Hardware.backRightJaguar = new Jaguar(3);
-        Hardware.frontLeftJaguar = new Jaguar(1);
-        Hardware.backLeftJaguar = new Jaguar(2);
+        Hardware.frontRightTalon = new Talon(4);
+        Hardware.backRightTalon = new Talon(3);
+        Hardware.frontLeftTalon = new Talon(1);
+        Hardware.backLeftTalon = new Talon(2);
         
         Hardware.gyro = new Gyro(1);
+        double gyroState = Hardware.gyro.getAngle();
+        double uniGyro = Hardware.gyro.getAngle();
         
         Hardware.dLCD = DriverStationLCD.getInstance();
          
