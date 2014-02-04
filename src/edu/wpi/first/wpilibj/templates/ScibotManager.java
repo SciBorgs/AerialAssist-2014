@@ -13,8 +13,9 @@ import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Joystick;
- import edu.wpi.first.wpilibj.SimpleRobot;
- import java.util.*;
+import edu.wpi.first.wpilibj.SimpleRobot;
+import edu.wpi.first.wpilibj.Solenoid;
+import java.util.*;
  
  /**
   * The VM is configured to automatically run this class, and to call the
@@ -35,8 +36,8 @@ import edu.wpi.first.wpilibj.Joystick;
      private Object[] autoGroup = new Object[2];
      
      public void robotInit() {
-        Hardware.rightJoy = new Joystick(1);
-        Hardware.leftJoy = new Joystick(2);
+        Hardware.rightJoy = new Joystick(2);
+        Hardware.leftJoy = new Joystick(1);
         
         Hardware.frontRightTalon = new Talon(4);
         Hardware.backRightTalon = new Talon(3);
@@ -48,6 +49,8 @@ import edu.wpi.first.wpilibj.Joystick;
         double uniGyro = Hardware.gyro.getAngle();
         
         Hardware.dLCD = DriverStationLCD.getInstance();
+        
+        Hardware.shooterPiston = new Solenoid(5);
          
          
          //Establish booleans to represent whether the thread group is running, all classes need to extend
@@ -68,13 +71,21 @@ import edu.wpi.first.wpilibj.Joystick;
          
      }
      
+     public void disabled() {
+        if(((Boolean) teleGroup[0]).booleanValue()){
+            stopGroup(teleGroup);
+        }  
+        if(((Boolean) autoGroup[0]).booleanValue()){
+            stopGroup(autoGroup);
+        } 
+     }
+     
      public void autonomous() {
         if(((Boolean) teleGroup[0]).booleanValue()){
             stopGroup(teleGroup);
         } 
         if(!((Boolean) autoGroup[0]).booleanValue()){
             startGroup(autoGroup);
-            System.out.println("Autogroup started");
         } 
      }
  
@@ -87,16 +98,16 @@ import edu.wpi.first.wpilibj.Joystick;
         } 
         if(!((Boolean) teleGroup[0]).booleanValue()){
             startGroup(teleGroup);
-            System.out.println("Telegroup started");
         } 
      }
      
      public void run() {
       while(!thread.isAlive()) {
-       try {
-        Thread.sleep(10);
-       }
-       catch (InterruptedException e) {}
+           try {
+            Thread.sleep(10);
+           }
+           catch (InterruptedException e) {}
+           Hardware.dLCD.clear();
       }
      }
      
@@ -111,6 +122,6 @@ import edu.wpi.first.wpilibj.Joystick;
         for(int i = 1; i < group.length; i++){
             ((ScibotThread) group[i]).stop();
         }
-        group[0] = new Boolean(true);
+        group[0] = new Boolean(false);
      }
  }
