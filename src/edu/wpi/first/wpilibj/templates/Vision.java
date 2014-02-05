@@ -11,8 +11,10 @@ import edu.wpi.first.wpilibj.image.CriteriaCollection;
 public class Vision extends ScibotThread {
 
     CriteriaCollection cc;
+    static Boolean targetHot = null;
+    
 
-    public void main() {
+    public void start() {
         System.out.println("robotInit");
         Hardware.camera.writeExposurePriority(AxisCamera.ExposurePriorityT.frameRate);//NEED THIS
         Hardware.camera.writeColorLevel(100);
@@ -24,9 +26,23 @@ public class Vision extends ScibotThread {
         cc.addCriteria(MeasurementType.IMAQ_MT_AREA, 500, 6553, false);                //not actual values(from last year)
         cc.addCriteria(NIVision.MeasurementType.IMAQ_MT_NUMBER_OF_HOLES, 1, 3, false); //not actual values(from last year)
         System.out.println("leave init");
+        super.start();
+    }
+    
+    public void function() {
+        if(targetHot == null) {
+            targetHot = (Boolean) hotDetector();
+        }
+        else {
+            if(!targetHot) {
+                Thread.sleep(5000); //Wait 5 seconds
+                targetHot = true;
+            }
+            running = false; //Stops the thread
+        }
     }
 
-    public boolean HotDetector() {
+    public boolean hotDetector() {
         ColorImage image = null;
         BinaryImage thresholdImage = null;
         BinaryImage bigObjectsImage = null;
