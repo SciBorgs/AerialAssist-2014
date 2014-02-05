@@ -16,8 +16,8 @@ public class Drive extends ScibotThread {
         rightVal = Hardware.rightJoy.getY();
         leftVal = Hardware.leftJoy.getY();
         
-        leftVal = leftVal*Math.abs(leftVal);
-        rightVal = rightVal*Math.abs(rightVal);
+        leftVal *= Math.abs(leftVal);
+        rightVal *= Math.abs(rightVal);
         
         if(leftVal > 1) leftVal = 1;
         if(leftVal < -1) leftVal = -1;
