@@ -9,10 +9,12 @@ import edu.wpi.first.wpilibj.image.NIVision.MeasurementType;
 import edu.wpi.first.wpilibj.image.CriteriaCollection;
 
 public class Vision extends ScibotThread {
-
-    CriteriaCollection cc;
-
-    public void main() {
+    
+    private CriteriaCollection cc;
+    public boolean hot = false;
+    
+    //first setup, only happens once per robot up times so put in contructor makes sense
+    public Vision() {
         System.out.println("robotInit");
         Hardware.camera.writeExposurePriority(AxisCamera.ExposurePriorityT.frameRate);//NEED THIS
         Hardware.camera.writeColorLevel(100);
@@ -25,40 +27,36 @@ public class Vision extends ScibotThread {
         cc.addCriteria(NIVision.MeasurementType.IMAQ_MT_NUMBER_OF_HOLES, 1, 3, false); //not actual values(from last year)
         System.out.println("leave init");
     }
-
-    public boolean HotDetector() {
+    
+    public void function() {
         ColorImage image = null;
-        BinaryImage thresholdImage = null;
-        BinaryImage bigObjectsImage = null;
-        BinaryImage convexHullImage = null;
-        BinaryImage filteredImage = null;
-        boolean hot = false;
+        BinaryImage thresholdImage,bigObjectsImage,convexHullImage,filteredImage;
         try {
+            
             image = Hardware.camera.getImage();
             thresholdImage = image.thresholdRGB(0, 45, 25, 255, 0, 47);
             bigObjectsImage = thresholdImage.removeSmallObjects(false, 2);
             convexHullImage = bigObjectsImage.convexHull(false);
             filteredImage = convexHullImage.particleFilter(cc);
             ParticleAnalysisReport[] reports = filteredImage.getOrderedParticleAnalysisReports();
+            
             if(reports.length + 1 > 0){
                 hot = true;
             }
-            
-        } catch (AxisCameraException ex) {        // this is needed if the camera.getImage() is called
-            ex.printStackTrace();
-        } catch (NIVisionException ex) {
-            ex.printStackTrace();
-        } finally {
-        }
-        try {
+            //consider making these images class variables
+            //and make another method to dump them instead of making and dumping them
+            //every function call, might save space/increase speed.
+            //make sure to call the release method when shutting down robot
             filteredImage.free();
             convexHullImage.free();
             bigObjectsImage.free();
             thresholdImage.free();
             image.free();
+            
+        } catch (AxisCameraException ex) {        // this is needed if the camera.getImage() is called
+            ex.printStackTrace();
         } catch (NIVisionException ex) {
             ex.printStackTrace();
         }
-return hot;
     }
 }
