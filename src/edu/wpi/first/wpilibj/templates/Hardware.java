@@ -46,5 +46,7 @@ public class Hardware {
     public static Solenoid shooterPiston;
     //public static DoubleSolenoid piston = new DoubleSolenoid(1,2);
     //public static Compressor compress = new Compressor(1, 2);
+    //Camera
+    public static AxisCamera camera;
    
 }
