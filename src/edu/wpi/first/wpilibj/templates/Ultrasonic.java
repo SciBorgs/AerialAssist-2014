@@ -15,6 +15,8 @@ public class Ultrasonic extends ScibotThread {
     }
     
     public void function() {
+        if(!Vision.targetHot.getValue()) return; //If the goal is not hot yet
+        
         if(!ready) {
             while(Math.abs(leftValue - rightValue) > BUFFER) {
                 align();
