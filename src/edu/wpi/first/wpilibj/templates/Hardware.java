@@ -43,8 +43,8 @@ public class Hardware {
     public static DriverStationLCD dLCD;
     
     //Pistons
-    public static DoubleSolenoid shooterPiston1;
-    public static DoubleSolenoid shooterPiston2;
+    public static Solenoid shooterPiston1;
+    public static Solenoid shooterPiston2;
     public static Solenoid gateLatch;
     //public static DoubleSolenoid piston = new DoubleSolenoid(1,2);
     public static Compressor compressor;
@@ -69,8 +69,8 @@ public class Hardware {
         camera = AxisCamera.getInstance();
         rightJoy = new Joystick(1);
         leftJoy = new Joystick(2);
-        shooterPiston1 = new DoubleSolenoid(1,2);
-        shooterPiston2 = new DoubleSolenoid(3,4);
+        shooterPiston1 = new Solenoid(1);
+        shooterPiston2 = new Solenoid(2);
         gateLatch = new Solenoid(3);
         compressor = new Compressor(1,2);
         leftSensor = new Ultrasonic(1,2);
