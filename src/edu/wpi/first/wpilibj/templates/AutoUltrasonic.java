@@ -28,6 +28,7 @@ public class AutoUltrasonic extends ScibotThread {
         else {
             Shooter.shoot();
         }
+        stop();
     }
     
     public void align() {
