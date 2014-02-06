@@ -54,7 +54,8 @@ import java.util.*;
         Hardware.leftSensor = new Ultrasonic(0, 0); //FIX PORT
         Hardware.rightSensor = new Ultrasonic(0, 0); //FIX PORT
         
-        Hardware.shooterPiston = new Solenoid(5);
+        Hardware.piston1 = new DoubleSolenoid(5);
+        Hardware.piston2 = new DoubleSolenoid(6);
          
          
          //Establish booleans to represent whether the thread group is running, all classes need to extend
