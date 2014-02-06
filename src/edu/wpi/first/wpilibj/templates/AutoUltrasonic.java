@@ -26,7 +26,7 @@ public class AutoUltrasonic extends ScibotThread {
             }
         }
         else {
-            Hardware.dLCD.println(DriverStationLCD.Line.kUser4, 1, "Ready to shoot.");
+            Shooter.shoot();
         }
     }
     
