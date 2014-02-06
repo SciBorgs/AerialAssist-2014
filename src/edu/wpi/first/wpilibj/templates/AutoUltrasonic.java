@@ -1,6 +1,8 @@
 package edu.wpi.first.wpilibj.templates;
 
-public class Ultrasonic extends ScibotThread {
+import edu.wpi.first.wpilibj.DriverStationLCD;
+
+public class AutoUltrasonic extends ScibotThread {
 
     double leftValue = Hardware.leftSensor.getRangeInches();
     double rightValue = Hardware.rightSensor.getRangeInches();
@@ -24,7 +26,7 @@ public class Ultrasonic extends ScibotThread {
             }
         }
         else {
-            Hardware.dLCD.println(DriverStationLCD.Line.kUser4, 1, "Ready to shoot.", );
+            Hardware.dLCD.println(DriverStationLCD.Line.kUser4, 1, "Ready to shoot.");
         }
     }
     

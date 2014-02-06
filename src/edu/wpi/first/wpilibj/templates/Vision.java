@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.image.CriteriaCollection;
 public class Vision extends ScibotThread {
 
     CriteriaCollection cc;
+    Boolean targetHot;
 
     public void main() {
         System.out.println("robotInit");
@@ -29,18 +30,20 @@ public class Vision extends ScibotThread {
     
     public void function() {
         if(targetHot == null) {
-            targetHot = (Boolean) hotDetector();
+            targetHot = new Boolean(hotDetector());
         }
         else {
-            if(!targetHot) {
-                Thread.sleep(5000); //Wait 5 seconds
-                targetHot = true;
+            if(!targetHot.booleanValue()) {
+                try {
+                    Thread.sleep(5000); //Wait 5 seconds
+                } catch (InterruptedException e) {}
+                targetHot = new Boolean(true);
             }
             running = false; //Stops the thread
         }
     }
 
-    public boolean HotDetector() {
+    public boolean hotDetector() {
         ColorImage image = null;
         BinaryImage thresholdImage = null;
         BinaryImage bigObjectsImage = null;

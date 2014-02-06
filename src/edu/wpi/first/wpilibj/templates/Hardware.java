@@ -29,7 +29,6 @@ public class Hardware {
     public static Talon frontLeftTalon;
     public static Talon backRightTalon;
     public static Talon backLeftTalon;
-    
     //Robotdrive
     // public static RobotDrive drive = new RobotDrive(2,4,1,3);
     
@@ -41,7 +40,9 @@ public class Hardware {
     public static Joystick leftJoy;
     
     public static DriverStationLCD dLCD;
-    //Pistons
+    
+    public static Ultrasonic leftSensor;
+    public static Ultrasonic rightSensor;
     
     public static Solenoid shooterPiston;
     //public static DoubleSolenoid piston = new DoubleSolenoid(1,2);
