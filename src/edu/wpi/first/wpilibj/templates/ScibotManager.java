@@ -34,7 +34,7 @@ import java.util.*;
      
      //Increase the array size when threads are added
      private Object[] teleGroup = new Object[2];
-     private Object[] autoGroup = new Object[1];
+     private Object[] autoGroup = new Object[2];
      
      public void robotInit() {
         Hardware.rightJoy = new Joystick(2);
@@ -64,6 +64,7 @@ import java.util.*;
          
          //Add all neccesary threads to the auto thread group
          //autoGroup.addElement(new <nameOfClass>());
+         autoGroup[1] = new AutoUltrasonic();
          
          //Add all neccesary threads to the tele thread group
          //teleGroup.addElement(new <nameOfClass>());
