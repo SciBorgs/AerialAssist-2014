@@ -1,74 +1,50 @@
 package edu.wpi.first.wpilibj.templates;
 
-import edu.wpi.first.wpilibj.DriverStationLCD;
-
 public class Ultrasonic extends ScibotThread {
 
-    double leftValue;
-    double rightValue;
+    double leftValue = Hardware.leftSensor.getRangeInches();
+    double rightValue = Hardware.rightSensor.getRangeInches();
     double avgValue = (leftValue + rightValue) / 2;
     final double BUFFER = 1;
     double distance = 1;
-    public static boolean ready;
-    public static boolean inPosition;
+    boolean ready = false;
     
-    public Ultrasonic() {
+    public void start() {
         ready = false;
-        inPosition = false;
+        super.start();
     }
     
     public void function() {
-        leftValue = Hardware.leftSensor.getRangeInches();
-        rightValue = Hardware.rightSensor.getRangeInches();
-        if(leftValue == 0 || rightValue == 0){
-            Hardware.dLCD.println(DriverStationLCD.Line.kUser4, 1, "Ultrasonic NOT in range");
-            ready = true;
-        }else{
-            Hardware.dLCD.println(DriverStationLCD.Line.kUser4, 1, "Ultrasonic in range");
-            ready = inPosition = false;
-        }
-        //align and travel only happens if untrasonic is in range and button 3 of left joystick is pressed
-        if(ready && Hardware.leftJoy.getRawButton(3)) {
-            //restrict driver control of the robot
-            Drive.takeOver = true;
+        if(!ready) {
             while(Math.abs(leftValue - rightValue) > BUFFER) {
                 align();
             }
-            boolean tr = false;
-            while(!tr) {
-                tr = travel();
+            while(!ready) {
+                ready = travel();
             }
-            inPosition = true;
-            Drive.takeOver = false;
+        }
+        else {
+            Hardware.dLCD.println(DriverStationLCD.Line.kUser4, 1, "Ready to shoot.", );
         }
     }
     
     public void align() {
         double speed = (leftValue - rightValue) * 0.1;
         if (leftValue - rightValue > 0) {
-            Drive.leftVal = speed;
-            Drive.rightVal = -speed;
-//            Hardware.drive.tankDrive(speed, -speed);
-//            Hardware.backLeftTalon.set(speed);
-//            Hardware.frontLeftTalon.set(speed);
-//            Hardware.frontRightTalon.set(-speed);
-//            Hardware.backRightTalon.set(-speed);
+            Hardware.backLeftTalon.set(speed);
+            Hardware.frontLeftTalon.set(speed);
+            Hardware.frontRightTalon.set(-speed);
+            Hardware.backRightTalon.set(-speed);
         } else if (rightValue - leftValue > 0) {
-            Drive.leftVal = -speed;
-            Drive.rightVal = speed;
-//            Hardware.drive.tankDrive(-speed, speed);
-//            Hardware.backLeftTalon.set(-speed);
-//            Hardware.frontLeftTalon.set(-speed);
-//            Hardware.frontRightTalon.set(speed);
-//            Hardware.backRightTalon.set(speed);
+            Hardware.backLeftTalon.set(-speed);
+            Hardware.frontLeftTalon.set(-speed);
+            Hardware.frontRightTalon.set(speed);
+            Hardware.backRightTalon.set(speed);
         } else {
-            Drive.leftVal = 0;
-            Drive.rightVal = 0;
-//            Hardware.drive.tankDrive(0, 0);
-//            Hardware.backLeftTalon.set(0);
-//            Hardware.frontLeftTalon.set(0);
-//            Hardware.frontRightTalon.set(0);
-//            Hardware.backRightTalon.set(0);
+            Hardware.backLeftTalon.set(0);
+            Hardware.frontLeftTalon.set(0);
+            Hardware.frontRightTalon.set(0);
+            Hardware.backRightTalon.set(0);
         }
     }
 
@@ -79,29 +55,20 @@ public class Ultrasonic extends ScibotThread {
         else {
             double speed = -((distance - avgValue) / distance);
             if (distance - avgValue > 0) {
-                Drive.leftVal = speed;
-                Drive.rightVal = speed;
-//                Hardware.drive.tankDrive(speed, speed);
-//                Hardware.backLeftTalon.set(speed);
-//                Hardware.frontLeftTalon.set(speed);
-//                Hardware.frontRightTalon.set(speed);
-//                Hardware.backRightTalon.set(speed);
+                Hardware.backLeftTalon.set(speed);
+                Hardware.frontLeftTalon.set(speed);
+                Hardware.frontRightTalon.set(speed);
+                Hardware.backRightTalon.set(speed);
             } else if (distance - avgValue < 0) {
-                Drive.leftVal = -speed;
-                Drive.rightVal = -speed;
-//                Hardware.drive.tankDrive(speed, speed);
-//                Hardware.backLeftTalon.set(speed);
-//                Hardware.frontLeftTalon.set(speed);
-//                Hardware.frontRightTalon.set(speed);
-//                Hardware.backRightTalon.set(speed);
+                Hardware.backLeftTalon.set(speed);
+                Hardware.frontLeftTalon.set(speed);
+                Hardware.frontRightTalon.set(speed);
+                Hardware.backRightTalon.set(speed);
             } else {
-                Drive.leftVal = 0;
-                Drive.rightVal = 0;
-//                Hardware.drive.tankDrive(0, 0);
-//                Hardware.backLeftTalon.set(0);
-//                Hardware.frontLeftTalon.set(0);
-//                Hardware.frontRightTalon.set(0);
-//                Hardware.backRightTalon.set(0);
+                Hardware.backLeftTalon.set(0);
+                Hardware.frontLeftTalon.set(0);
+                Hardware.frontRightTalon.set(0);
+                Hardware.backRightTalon.set(0);
             }
             return false;
         }
