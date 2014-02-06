@@ -27,7 +27,6 @@ public abstract class ScibotThread implements Runnable {
 //      while(Thread.currentThread().isAlive()) {
           if(running) {
             function();
-            try{Thread.sleep(10);}catch(Exception e){}
           }
         //System.out.println("Running");
 //     	}
