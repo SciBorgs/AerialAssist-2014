@@ -56,7 +56,7 @@ import java.util.*;
         
         Hardware.piston1 = new DoubleSolenoid(5);
         Hardware.piston2 = new DoubleSolenoid(6);
-         
+        Hardware.gateLatch = new Solenoid(7);
          
          //Establish booleans to represent whether the thread group is running, all classes need to extend
          //ScibotThread
