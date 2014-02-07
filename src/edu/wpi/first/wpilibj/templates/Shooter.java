@@ -1,6 +1,6 @@
 public class Shooter extends SciBotThread{
   
-  public final int SHOOT_TIME = 100; //Time, in milliseconds, it takes to shoot
+  public final int SHOOT_TIME = 100; //Time, in seconds, it takes to shoot
   
   public void function(){
     //Code to turn compressor on and off based on value of pressure sensor
@@ -23,17 +23,13 @@ public class Shooter extends SciBotThread{
       Hardware.piston1.set(DoubleSolenoid.kForward);
       Hardware.piston2.set(DoubleSolenoid.kForward);
       
-      try {
-        Thread.sleep(SHOOT_TIME);
-      } catch(InterruptedException e) {}
+      Timer.delay(SHOOT_TIME);
       
       Hardware.relay.stop();
       Hardware.piston1.set(DoubleSolenoid.kReverse);
       Hardware.piston2.set(DoubleSolenoid.kReverse);
       
-      try {
-        Thread.sleep(SHOOT_TIME);
-      } catch(InterruptedException e) {}
+      Timer.delay(SHOOT_TIME);
       
       Hardware.piston1.set(DoubleSolenoid.kOff);
       Hardware.piston2.set(DoubleSolenoid.kOff);
