@@ -57,9 +57,9 @@ public class Vision extends ScibotThread {
             convexHullImage = bigObjectsImage.convexHull(false);
             filteredImage = convexHullImage.particleFilter(cc);
             ParticleAnalysisReport[] reports = filteredImage.getOrderedParticleAnalysisReports();
-            if(reports.length + 1 > 0){
+            if(reports.length >= 1){
                 hot = true;
-            }
+            } 
             
         } catch (AxisCameraException ex) {        // this is needed if the camera.getImage() is called
             ex.printStackTrace();
