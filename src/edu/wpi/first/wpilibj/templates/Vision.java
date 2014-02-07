@@ -60,14 +60,6 @@ public class Vision extends ScibotThread {
             if(reports.length >= 1){
                 hot = true;
             } 
-            
-        } catch (AxisCameraException ex) {        // this is needed if the camera.getImage() is called
-            ex.printStackTrace();
-        } catch (NIVisionException ex) {
-            ex.printStackTrace();
-        } finally {
-        }
-        try {
             filteredImage.free();
             convexHullImage.free();
             bigObjectsImage.free();
@@ -75,7 +67,8 @@ public class Vision extends ScibotThread {
             image.free();
         } catch (NIVisionException ex) {
             ex.printStackTrace();
-        }
+        } catch (AxisCameraException ex) {        // this is needed if the camera.getImage() is called
+            ex.printStackTrace();}
 return hot;
     }
 }
