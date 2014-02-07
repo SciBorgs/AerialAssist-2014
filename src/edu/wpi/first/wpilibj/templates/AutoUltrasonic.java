@@ -27,6 +27,14 @@ public class AutoUltrasonic extends ScibotThread {
         }
         else {
             Shooter.shoot();
+            while(Math.abs(leftValue - rightValue) > BUFFER) {
+                align();
+            }
+            //Reassign distance to 2
+            distance = 2;
+            while(!ready) {
+                ready = travel();
+            }
         }
         stop();
     }
