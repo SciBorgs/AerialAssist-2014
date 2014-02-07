@@ -23,7 +23,6 @@ public class Vision extends ScibotThread {
         cc = new CriteriaCollection();      // create the criteria for the particle filter
         System.out.println("CC");
         cc.addCriteria(MeasurementType.IMAQ_MT_AREA, 500, 6553, false);                //not actual values(from last year)
-        cc.addCriteria(NIVision.MeasurementType.IMAQ_MT_NUMBER_OF_HOLES, 1, 3, false); //not actual values(from last year)
         System.out.println("leave init");
         super.start();
     }
