@@ -12,7 +12,7 @@ package edu.wpi.first.wpilibj.templates;
  */
 public abstract class ScibotThread implements Runnable {
     
-    private Thread thread;
+    public Thread thread;
     public boolean running;
     
     public void start() {
@@ -24,10 +24,8 @@ public abstract class ScibotThread implements Runnable {
     }
     
     public void run() {
-      while(Thread.currentThread().isAlive()) {
-          if(running) {
-            function();
-          }
+      while(running) {
+          function();
         //System.out.println("Running");
      	}
     }

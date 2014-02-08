@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class Shooter extends ScibotThread{
   
   public static final int SHOOT_TIME = 100; //Time, in seconds, it takes to shoot
+  public static boolean isShootingMode;
   
   public void function(){
     //Code to turn compressoror on and off based on value of pressure sensor
@@ -16,9 +17,21 @@ public class Shooter extends ScibotThread{
     else {
       Hardware.compressor.stop();
     }
-      
-    if (Hardware.rightJoy.getTrigger()){
+    
+    //Shoots based on trigger and mode
+    if (Hardware.rightJoy.getTrigger() && isShootingMode){
        shoot();
+    }
+    else {
+       catchBall();  
+    }
+    
+    //Switches modes if neccesary
+    if (Hardware.rightJoy.getRawButton(10)) { //Alter button
+        isShootingMode = !isShootingMode;
+        if(isShootingMode) {
+            
+        }
     }
   }
   
@@ -39,5 +52,9 @@ public class Shooter extends ScibotThread{
       
       Hardware.piston1.set(DoubleSolenoid.Value.kOff);
       Hardware.piston2.set(DoubleSolenoid.Value.kOff);
+  }
+  
+  public static void catchBall() {
+      
   }
 }

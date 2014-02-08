@@ -1,5 +1,6 @@
 package edu.wpi.first.wpilibj.templates;
 
+import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
@@ -12,9 +13,8 @@ public class Vision extends ScibotThread {
 
     CriteriaCollection cc;
     Boolean targetHot;
-
-    public void main() {
-        System.out.println("robotInit");
+    
+    public void start() {
         Hardware.camera.writeExposurePriority(AxisCamera.ExposurePriorityT.frameRate);//NEED THIS
         Hardware.camera.writeColorLevel(100);
         Hardware.camera.writeBrightness(50);
@@ -22,7 +22,7 @@ public class Vision extends ScibotThread {
         System.out.println("Camera");
         cc = new CriteriaCollection();      // create the criteria for the particle filter
         System.out.println("CC");
-        cc.addCriteria(MeasurementType.IMAQ_MT_AREA, 500, 6553, false);                //not actual values(from last year)
+        cc.addCriteria(MeasurementType.IMAQ_MT_AREA, 20, 70000, false);                //not actual values(from last year)
         System.out.println("leave init");
         super.start();
     }
@@ -34,11 +34,13 @@ public class Vision extends ScibotThread {
         else {
             if(!targetHot.booleanValue()) {
                 try {
+                    Hardware.dLCD.println(DriverStationLCD.Line.kUser5, 1, "Target isn't hot");
                     Thread.sleep(5000); //Wait 5 seconds
                 } catch (InterruptedException e) {}
-                targetHot = new Boolean(true);
             }
-            running = false; //Stops the thread
+            Hardware.dLCD.println(DriverStationLCD.Line.kUser5, 1, "Target is hot");
+            targetHot = new Boolean(true);
+            stop(); //Stops the thread
         }
     }
 
@@ -51,7 +53,7 @@ public class Vision extends ScibotThread {
         boolean hot = false;
         try {
             image = Hardware.camera.getImage();
-            thresholdImage = image.thresholdRGB(0, 45, 25, 255, 0, 47);
+            thresholdImage = image.thresholdRGB(0, 103, 109, 255, 122, 255);
             bigObjectsImage = thresholdImage.removeSmallObjects(false, 2);
             convexHullImage = bigObjectsImage.convexHull(false);
             filteredImage = convexHullImage.particleFilter(cc);
