@@ -84,4 +84,13 @@ public class AutoUltrasonic extends ScibotThread {
             return false;
         }
     }
+    
+    public static double getRange() {
+        if (Hardware.leftSensor.isEnabled() && Hardware.rightSensor.isEnabled() && Hardware.leftSensor.isRangeValid() && Hardware.rightSensor.isRangeValid()) {
+            double average = (Hardware.leftSensor.getRangeInches() + Hardware.rightSensor.getRangeInches()) / 2;
+            return average;
+        } else {
+            return 0;
+        }
+    }
 }
