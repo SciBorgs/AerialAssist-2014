@@ -8,11 +8,14 @@
  package edu.wpi.first.wpilibj.templates;
  
  
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Ultrasonic;
@@ -33,8 +36,9 @@ import java.util.*;
      private Thread thread; //Thread to manage cpu/bandwidth usage
      
      //Increase the array size when threads are added
-     private Object[] teleGroup = new Object[2];
-     private Object[] autoGroup = new Object[2];
+     private ScibotThread[] teleGroup = new ScibotThread[2];
+     private ScibotThread[] autoGroup = new ScibotThread[2];
+     private boolean teleRunning, autoRunning;
      
      public void robotInit() {
         Hardware.rightJoy = new Joystick(2);
@@ -54,14 +58,17 @@ import java.util.*;
         Hardware.leftSensor = new Ultrasonic(0, 0); //FIX PORT
         Hardware.rightSensor = new Ultrasonic(0, 0); //FIX PORT
         
-        Hardware.piston1 = new DoubleSolenoid(5);
-        Hardware.piston2 = new DoubleSolenoid(6);
+        Hardware.compressor = new Compressor(9, 10); //FIX PORT
+        
+        Hardware.piston1 = new DoubleSolenoid(5, 6); //FIX PORT
+        Hardware.piston2 = new DoubleSolenoid(7, 8); //FIX PORT
         Hardware.gateLatch = new Solenoid(7);
+        Hardware.relay = new Relay(1); //FIX PORT
          
          //Establish booleans to represent whether the thread group is running, all classes need to extend
          //ScibotThread
-         teleGroup[0] = new Boolean(false);
-         autoGroup[0] = new Boolean(false);
+         teleRunning = false;
+         autoRunning = false;
          
          //Add all neccesary threads to the auto thread group
          //autoGroup.addElement(new <nameOfClass>());
@@ -77,20 +84,20 @@ import java.util.*;
      }
      
      public void disabled() {
-        if(((Boolean) teleGroup[0]).booleanValue()){
-            stopGroup(teleGroup);
+        if(teleRunning){
+            teleRunning = stopGroup(teleGroup);
         }  
-        if(((Boolean) autoGroup[0]).booleanValue()){
-            stopGroup(autoGroup);
+        if(autoRunning){
+            autoRunning = stopGroup(autoGroup);
         } 
      }
      
      public void autonomous() {
-        if(((Boolean) teleGroup[0]).booleanValue()){
-            stopGroup(teleGroup);
+        if(teleRunning){
+            teleRunning = stopGroup(teleGroup);
         } 
-        if(!((Boolean) autoGroup[0]).booleanValue()){
-            startGroup(autoGroup);
+        if(!autoRunning){
+            autoRunning = startGroup(autoGroup);
         } 
      }
  
@@ -98,11 +105,11 @@ import java.util.*;
       * This function is called once each time the robot enters operator control.
       */
      public void operatorControl() {
-        if(((Boolean) autoGroup[0]).booleanValue()){
-            stopGroup(autoGroup);
+        if(autoRunning){
+            autoRunning = stopGroup(autoGroup);
         } 
-        if(!((Boolean) teleGroup[0]).booleanValue()){
-            startGroup(teleGroup);
+        if(!teleRunning){
+            teleRunning = startGroup(teleGroup);
         } 
      }
      
@@ -116,17 +123,17 @@ import java.util.*;
       }
      }
      
-     public void startGroup(Object[] group){
+     public boolean startGroup(ScibotThread[] group){
          for(int i = 1; i < group.length; i++){
-            ((ScibotThread) group[i]).start();
+            group[i].start();
          }
-         group[0] = new Boolean(true);
+         return true;
      }
      
-     public void stopGroup(Object[] group){
+     public boolean stopGroup(ScibotThread[] group){
         for(int i = 1; i < group.length; i++){
-            ((ScibotThread) group[i]).stop();
+            group[i].stop();
         }
-        group[0] = new Boolean(false);
+        return false;
      }
  }

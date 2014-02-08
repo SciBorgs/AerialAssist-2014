@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
@@ -45,9 +46,12 @@ public class Hardware {
     public static Ultrasonic leftSensor;
     public static Ultrasonic rightSensor;
     
+    public static Compressor compressor;
+    
     public static DoubleSolenoid piston1;
     public static DoubleSolenoid piston2;
     public static Solenoid gateLatch;
+    public static Relay relay;
     //public static DoubleSolenoid piston = new DoubleSolenoid(1,2);
     //public static Compressor compress = new Compressor(1, 2);
     //Camera
