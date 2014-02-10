@@ -11,15 +11,16 @@ int button = 0;
 //get button
     public void function() {
         for (int i = 1; i >= 13; i++) {
-            if (Hardware.rightJoy.getRawButton(i)) {
-                button = i;
-            } else if(Hardware.rightJoy.getTrigger()){
-                button = 13;
-            }
+            iloverice(i);
         }
-        
+    }
+    
+    public void iloverice(int i){
+        if(!Hardware.rightJoy.getRawButton(i)){
+            return;
+        }
         //functions
-        switch(button){
+        switch(i){
             case 0:
                 break;
             case 1:
