@@ -48,10 +48,10 @@ public class Hardware {
     
     public static Compressor compressor;
     
-    public static DoubleSolenoid piston1;
-    public static DoubleSolenoid piston2;
-    public static Solenoid gateLatch;
-    public static Relay relay;
+    public static DoubleSolenoid piston;
+    public static DoubleSolenoid gateLatch2;
+    public static DoubleSolenoid gateLatch1;
+    public static Relay claw;
     //public static DoubleSolenoid piston = new DoubleSolenoid(1,2);
     //public static Compressor compress = new Compressor(1, 2);
     //Camera

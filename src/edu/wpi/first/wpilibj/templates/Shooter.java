@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.Timer;
 public class Shooter extends ScibotThread{
   
   public static final int SHOOT_TIME = 100; //Time, in seconds, it takes to shoot
-  public static boolean isShootingMode;
   
   public void function(){
     //Code to turn compressoror on and off based on value of pressure sensor
@@ -19,42 +18,43 @@ public class Shooter extends ScibotThread{
     }
     
     //Shoots based on trigger and mode
-    if (Hardware.rightJoy.getTrigger() && isShootingMode){
+    if (Hardware.rightJoy.getTrigger() && isShootingMode()){
        shoot();
     }
     else {
        catchBall();  
     }
     
-    //Switches modes if neccesary
-    if (Hardware.rightJoy.getRawButton(10)) { //Alter button
-        isShootingMode = !isShootingMode;
-        if(isShootingMode) {
-            
-        }
+        
     }
-  }
-  
-  public static void shoot(){
+ 
+  public static void shoot(){// might need to split this up
     //Code to shoot
-      Hardware.relay.set(Relay.Value.kForward);
-      Hardware.relay.set(Relay.Value.kOn);
-      Hardware.piston1.set(DoubleSolenoid.Value.kForward);
-      Hardware.piston2.set(DoubleSolenoid.Value.kForward);
+      Hardware.piston.set(DoubleSolenoid.Value.kForward);
+      Hardware.claw.set(Relay.Value.kForward);
+      
+      Timer.delay(1);
+      
+      Hardware.gateLatch1.set(DoubleSolenoid.Value.kReverse);
+      Hardware.gateLatch2.set(DoubleSolenoid.Value.kReverse);
+      
+      Timer.delay(2);
+      
+      Hardware.claw.set(Relay.Value.kReverse);
+      
+      Hardware.gateLatch1.set(DoubleSolenoid.Value.kReverse);
+      Hardware.gateLatch2.set(DoubleSolenoid.Value.kReverse);
       
       Timer.delay(SHOOT_TIME);
-      
-      Hardware.relay.set(Relay.Value.kOff);
-      Hardware.piston1.set(DoubleSolenoid.Value.kReverse);
-      Hardware.piston2.set(DoubleSolenoid.Value.kReverse);
-      
-      Timer.delay(SHOOT_TIME);
-      
-      Hardware.piston1.set(DoubleSolenoid.Value.kOff);
-      Hardware.piston2.set(DoubleSolenoid.Value.kOff);
+
   }
   
   public static void catchBall() {
       
   }
+  public static boolean isShootingMode(){
+      return Hardware.piston.get() == DoubleSolenoid.Value.kForward;// I know I know "what about claw" dwai
+ //will add claw later 
+  }
 }
+  
