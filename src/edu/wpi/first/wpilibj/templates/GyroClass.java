@@ -16,7 +16,7 @@ public class GyroClass{
         angle = Hardware.gyro.getAngle();
         
         while (angle>=360){
-            angle -= 360;
+            angle % 360 = angle;
         }
      
     }
