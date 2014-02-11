@@ -40,6 +40,7 @@ public class Hardware {
     //Joysticks 
     public static Joystick rightJoy;
     public static Joystick leftJoy;
+    public static Joystick remote;
     
     public static DriverStationLCD dLCD;
     

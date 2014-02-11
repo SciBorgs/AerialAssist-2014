@@ -46,6 +46,7 @@ import java.util.*;
      public void robotInit() {
         Hardware.rightJoy = new Joystick(2);
         Hardware.leftJoy = new Joystick(1);
+        Hardware.remote = new Joystick(3);
         
         Hardware.frontRightTalon = new Talon(4);
         Hardware.backRightTalon = new Talon(3);
@@ -79,7 +80,6 @@ import java.util.*;
          //autoGroup.addElement(new <nameOfClass>());
 //         autoGroup[0] = new AutoUltrasonic();
          autoGroup[0] = new Vision();
-         autoGroup[0].start();
          
          //Add all neccesary threads to the tele thread group
          //teleGroup.addElement(new <nameOfClass>());
