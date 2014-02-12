@@ -31,6 +31,7 @@ public class Hardware {
     public static Talon frontLeftTalon;
     public static Talon backRightTalon;
     public static Talon backLeftTalon;
+    public static Talon clawMotor;
     //Robotdrive
     // public static RobotDrive drive = new RobotDrive(2,4,1,3);
     

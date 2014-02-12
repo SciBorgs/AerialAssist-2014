@@ -6,15 +6,37 @@
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DriverStationLCD;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.Relay;
 
 public class SwitchCase extends ScibotThread {
-
+    
+    //Large array that holds controlSurface objects and values
+    private Object[][] controlSurfaces = {
+        //Piston object and values
+        {Hardware.piston, "Piston", DoubleSolenoid.Value.kForward,
+        "Forward", DoubleSolenoid.Value.kOff, "Off", DoubleSolenoid.Value.kReverse, "Reverse"}, 
+        //Claw objects and values
+        {Hardware.claw, "Claw", Relay.Value.kForward, "Forward", Relay.Value.kOff, "Off", 
+        Relay.Value.kOn, "On", Relay.Value.kReverse, "Reverse"}, 
+        //GateLatch objects and values
+        {Hardware.gateLatch1, "Gate Latch", DoubleSolenoid.Value.kForward, "Forward", 
+         DoubleSolenoid.Value.kOff, "Off", DoubleSolenoid.Value.kReverse, "Reverse"}};
+    
+    
+    private int surfIndex = 0, valIndex = 0;
+    
 //get button
     public void function() {
         for (int i = 1; i >= 13; i++) {
             iLoveRice(i);
         }
+        clawMotor();
+        
+        //Show which control surface is selected
+        Hardware.dLCD.println(DriverStationLCD.Line.kUser3, 1, "Selected: " + controlSurfaces[surfIndex][2]);
+        
     }
     
     public void iLoveRice(int i){
@@ -22,52 +44,41 @@ public class SwitchCase extends ScibotThread {
             return;
         }
         //functions
-        switch(i){
-            //Controls piston
+        switch(i) {
             case 1:
-                if(Hardware.piston.get() == DoubleSolenoid.Value.kForward) {
-                    Hardware.piston.set(DoubleSolenoid.Value.kReverse);
-                    break;
-                }
-                Hardware.piston.set(DoubleSolenoid.Value.kForward);
+                valIndex--;
+                if(valIndex < 0) valIndex = controlSurfaces.length-2;                   
                 break;
                 
-            //Controls claw
-            case 2:
-                if(Hardware.claw.get() == Relay.Value.kOff) {
-                    Hardware.claw.set(Relay.Value.kOn);
-                    break;
-                }
-                Hardware.claw.set(Relay.Value.kOff);
-                break;
-                
-            //Controls gateLatch
             case 3:
-                if(Hardware.gateLatch1.get() == DoubleSolenoid.Value.kForward) {
-                    Hardware.gateLatch1.set(DoubleSolenoid.Value.kReverse);
-                    Hardware.gateLatch2.set(DoubleSolenoid.Value.kReverse);
-                    break;
-                }
-                Hardware.gateLatch1.set(DoubleSolenoid.Value.kForward);
-                Hardware.gateLatch2.set(DoubleSolenoid.Value.kForward);
+                valIndex++;
+                if(valIndex > controlSurfaces.length-2) valIndex = 0;
                 break;
                 
-            //Controls claw direction
-            case 4:
-                if(Hardware.claw.get() == Relay.Value.kForward) {
-                    Hardware.claw.set(Relay.Value.kReverse);
-                    break;
-                }
-                Hardware.claw.set(Relay.Value.kForward);
-                break;
             case 5:
+                index++;
+                if(index >= controlSurfaces.length) index = 0;
+                break;
                 
-                break;
             case 7:
+                index--;
+                if(index < 0) index = controlSurfaces.length-1;
                 break;
-            
+           
             default:
                 break;
+        }
+    }
+    
+    public static void clawMotor(){
+        if(Hardware.remote.getY(Hand.kRight) < 0){
+            Hardware.clawMotor.set(5);
+        }
+        else if(Hardware.remote.getY(Hand.kRight) > 0){
+            Hardware.clawMotor.set(-5);
+        }
+        else{
+            Hardware.clawMotor.set(0);
         }
     }
 }

@@ -52,6 +52,7 @@ import java.util.*;
         Hardware.backRightTalon = new Talon(3);
         Hardware.frontLeftTalon = new Talon(1);
         Hardware.backLeftTalon = new Talon(2);
+        Hardware.clawMotor = new Talon(5);
         
         Hardware.gyro = new Gyro(1);
         double gyroState = Hardware.gyro.getAngle();
