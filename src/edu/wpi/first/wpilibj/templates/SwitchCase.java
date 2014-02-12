@@ -56,13 +56,13 @@ public class SwitchCase extends ScibotThread {
                 break;
                 
             case 5:
-                index++;
-                if(index >= controlSurfaces.length) index = 0;
+                surfIndex++;
+                if(surfIndex >= controlSurfaces.length) surfIndex = 0;
                 break;
                 
             case 7:
-                index--;
-                if(index < 0) index = controlSurfaces.length-1;
+                surfIndex--;
+                if(surfIndex < 0) surfIndex = controlSurfaces.length-1;
                 break;
            
             default:
