@@ -15,17 +15,17 @@ public class SwitchCase extends ScibotThread {
     //Large array that holds controlSurface objects and values
     private Object[][] controlSurfaces = {
         //Piston object and values
-        {Hardware.piston, "Piston", DoubleSolenoid.Value.kForward,
+        {"Piston", DoubleSolenoid.Value.kForward,
         "Forward", DoubleSolenoid.Value.kOff, "Off", DoubleSolenoid.Value.kReverse, "Reverse"}, 
         //Claw objects and values
-        {Hardware.claw, "Claw", Relay.Value.kForward, "Forward", Relay.Value.kOff, "Off", 
+        {"Claw", Relay.Value.kForward, "Forward", Relay.Value.kOff, "Off", 
         Relay.Value.kOn, "On", Relay.Value.kReverse, "Reverse"}, 
         //GateLatch objects and values
-        {Hardware.gateLatch1, "Gate Latch", DoubleSolenoid.Value.kForward, "Forward", 
+        {"Gate Latch", DoubleSolenoid.Value.kForward, "Forward", 
          DoubleSolenoid.Value.kOff, "Off", DoubleSolenoid.Value.kReverse, "Reverse"}};
     
     
-    private int surfIndex = 0, valIndex = 0;
+    private int surfIndex = 0, valIndex = 1;
     
 //get button
     public void function() {
@@ -35,7 +35,8 @@ public class SwitchCase extends ScibotThread {
         clawMotor();
         
         //Show which control surface is selected
-        Hardware.dLCD.println(DriverStationLCD.Line.kUser3, 1, "Selected: " + controlSurfaces[surfIndex][2]);
+        Hardware.dLCD.println(DriverStationLCD.Line.kUser3, 1, "Selected: " + controlSurfaces[surfIndex][0]);
+        Hardware.dLCD.println(DriverStationLCD.Line.kUser4, 1, "Value: " + controlSurfaces[surfIndex][valIndex+1]);
         
     }
     
@@ -46,23 +47,35 @@ public class SwitchCase extends ScibotThread {
         //functions
         switch(i) {
             case 1:
-                valIndex--;
-                if(valIndex < 0) valIndex = controlSurfaces.length-2;                   
+                valIndex -= 2;
+                if(valIndex < 1) valIndex = controlSurfaces.length-2;                   
                 break;
                 
             case 3:
-                valIndex++;
+                valIndex += 2;
                 if(valIndex > controlSurfaces.length-2) valIndex = 0;
                 break;
                 
+            case 4:
+                if(surfIndex == 1) {
+                    Hardware.piston.set((DoubleSolenoid.Value) controlSurfaces[1][valIndex]);
+                }
+                else if(surfIndex == 2) {
+                    Hardware.claw.set((Relay.Value) controlSurfaces[2][valIndex]);
+                }
+                else if(surfIndex == 3) {
+                    Hardware.gateLatch1.set((DoubleSolenoid.Value) controlSurfaces[3][valIndex]);
+                    Hardware.gateLatch2.set((DoubleSolenoid.Value) controlSurfaces[3][valIndex]);
+                }
+                
             case 5:
                 surfIndex++;
-                if(surfIndex >= controlSurfaces.length) surfIndex = 0;
+                if(surfIndex > 2) surfIndex = 0;
                 break;
                 
             case 7:
                 surfIndex--;
-                if(surfIndex < 0) surfIndex = controlSurfaces.length-1;
+                if(surfIndex < 0) surfIndex = 2;
                 break;
            
             default:
