@@ -36,7 +36,7 @@ public class Hardware {
     // public static RobotDrive drive = new RobotDrive(2,4,1,3);
     
     //Gyro for drive code
-    public static Gyro gyro;
+    public static Gyro gyro = new Gyro(1);
     
     //Joysticks 
     public static Joystick rightJoy;
@@ -51,8 +51,7 @@ public class Hardware {
     public static Compressor compressor;
     
     public static DoubleSolenoid piston;
-    public static DoubleSolenoid gateLatch2;
-    public static DoubleSolenoid gateLatch1;
+    public static DoubleSolenoid gateLatch;
     public static Relay claw;
     //public static DoubleSolenoid piston = new DoubleSolenoid(1,2);
     //public static Compressor compress = new Compressor(1, 2);
