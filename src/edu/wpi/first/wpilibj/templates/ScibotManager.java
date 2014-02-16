@@ -31,12 +31,12 @@ import java.util.*;
   * creating this project, you must also update the manifest file in the resource
   * directory.
   */
- public class ScibotManager extends SimpleRobot implements Runnable{
+ public class ScibotManager extends SimpleRobot{
      /**
       * This function is called once each time the robot enters autonomous mode.
       */
      
-     private Thread thread; //Thread to manage cpu/bandwidth usage
+//     private Thread thread; //Thread to manage cpu/bandwidth usage
      
      //Increase the array size when threads are added
      private ScibotThread[] teleGroup = {/*new Drive(), */new SwitchCase()};
@@ -63,11 +63,12 @@ import java.util.*;
 //        Hardware.leftSensor = new Ultrasonic(1, 1); //FIX PORT
 //        Hardware.rightSensor = new Ultrasonic(1, 1); //FIX PORT
 //        
-        Hardware.compressor = new Compressor(1,8); //FIX PORT
+        Hardware.compressor = new Compressor(1,8); //updated port
 //        
-        Hardware.piston = new DoubleSolenoid(3,4); //FIX PORT
-//        Hardware.claw = new DoubleSolenoid(5, 6); //FIX PORT
         Hardware.gateLatch = new DoubleSolenoid(1,2);
+        Hardware.piston = new DoubleSolenoid(3,4); //updated port
+//        Hardware.claw = new DoubleSolenoid(5, 6); //updated port
+        
 //        Hardware.relay = new Relay(1); //FIX PORT
         
 //        Hardware.camera = AxisCamera.getInstance();
@@ -124,15 +125,16 @@ import java.util.*;
         } 
      }
      
-     public void run() {
-      while(!thread.isAlive()) {
-           try {
-            Thread.sleep(10);
-           }
-           catch (InterruptedException e) {}
-           //Hardware.dLCD.clear();
-      }
-     }
+     //Thread slow down feature is replaced by scibot thread
+//     public void run() {
+//      while(!thread.isAlive()) {
+//           try {
+//            Thread.sleep(10);
+//           }
+//           catch (InterruptedException e) {}
+//           //Hardware.dLCD.clear();
+//      }
+//     }
      
      public boolean startGroup(ScibotThread[] group){
          for(int i = 0; i < group.length; i++){
