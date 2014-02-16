@@ -96,16 +96,21 @@ public class SwitchCase extends ScibotThread {
             case 5:
                 surfIndex++;
                 if(surfIndex > controlSurfaces.length-3) surfIndex = 0;
+                if(valIndex > controlSurfaces[surfIndex].length-1) valIndex = 1;
                 break;
                 
             case 7:
                 surfIndex--;
                 if(surfIndex < 0) surfIndex = controlSurfaces.length-1;
+                if(valIndex > controlSurfaces[surfIndex].length-1) valIndex = 1;
                 break;
            
             default:
                 break;
         }
+        
+        //Delay
+        Timer.delay(0.5);
     }
     
     //TODO: use left stick to control claw
