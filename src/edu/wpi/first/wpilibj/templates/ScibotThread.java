@@ -16,16 +16,19 @@ public abstract class ScibotThread implements Runnable {
     public boolean running;
     
     public void start() {
-      if(thread == null) {
-        thread = new Thread(this);
-        thread.start();
-      }
+      thread = new Thread(this);
       running = true;
+      thread.start();
+      System.out.println("Thread started");
     }
     
     public void run() {
       while(running) {
           function();
+          try {
+            Thread.sleep(10);
+           }
+           catch (InterruptedException e) {}
         //System.out.println("Running");
      	}
     }

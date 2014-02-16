@@ -39,8 +39,8 @@ import java.util.*;
      private Thread thread; //Thread to manage cpu/bandwidth usage
      
      //Increase the array size when threads are added
-     private ScibotThread[] teleGroup = new ScibotThread[1];
-     private ScibotThread[] autoGroup = new ScibotThread[1];
+     private ScibotThread[] teleGroup = {/*new Drive(), */new SwitchCase()};
+     private ScibotThread[] autoGroup = {new Vision()};
      private boolean teleRunning, autoRunning;
      
      public void robotInit() {
@@ -48,29 +48,29 @@ import java.util.*;
         Hardware.leftJoy = new Joystick(1);
         Hardware.remote = new Joystick(3);
         
-        Hardware.frontRightTalon = new Talon(4);
-        Hardware.backRightTalon = new Talon(3);
+        Hardware.frontRightTalon = new Talon(9);
+        Hardware.backRightTalon = new Talon(10);
         Hardware.frontLeftTalon = new Talon(1);
         Hardware.backLeftTalon = new Talon(2);
-        Hardware.clawMotor = new Talon(5);
+        //Hardware.clawMotor = new Jaguar(5);
         
-        Hardware.gyro = new Gyro(1);
-        double gyroState = Hardware.gyro.getAngle();
-        double uniGyro = Hardware.gyro.getAngle();
+//        Hardware.gyro = new Gyro(1);
+        //double gyroState = Hardware.gyro.getAngle();
+        //double uniGyro = Hardware.gyro.getAngle();
         
         Hardware.dLCD = DriverStationLCD.getInstance();
         
 //        Hardware.leftSensor = new Ultrasonic(1, 1); //FIX PORT
 //        Hardware.rightSensor = new Ultrasonic(1, 1); //FIX PORT
 //        
-//        Hardware.compressor = new Compressor(9, 10); //FIX PORT
+        Hardware.compressor = new Compressor(1,8); //FIX PORT
 //        
-//        Hardware.piston1 = new DoubleSolenoid(5, 6); //FIX PORT
-//        Hardware.piston2 = new DoubleSolenoid(7, 8); //FIX PORT
-//        Hardware.gateLatch = new Solenoid(7);
+        Hardware.piston = new DoubleSolenoid(3,4); //FIX PORT
+//        Hardware.claw = new DoubleSolenoid(5, 6); //FIX PORT
+        Hardware.gateLatch = new DoubleSolenoid(1,2);
 //        Hardware.relay = new Relay(1); //FIX PORT
         
-        Hardware.camera = AxisCamera.getInstance();
+//        Hardware.camera = AxisCamera.getInstance();
          
          //Establish booleans to represent whether the thread group is running, all classes need to extend
          //ScibotThread
@@ -80,14 +80,17 @@ import java.util.*;
          //Add all neccesary threads to the auto thread group
          //autoGroup.addElement(new <nameOfClass>());
 //         autoGroup[0] = new AutoUltrasonic();
-         autoGroup[0] = new Vision();
+//         autoGroup[0] = new Vision();
+//         //autoGroup[1] = new AutoUltrasonic();
+//         
+//         //Add all neccesary threads to the tele thread group
+//         //teleGroup.addElement(new <nameOfClass>());
+//         teleGroup[0] = new Drive();
+//         teleGroup[1] = new SwitchCase();
+//         //teleGroup[2] = new Shooter();
          
-         //Add all neccesary threads to the tele thread group
-         //teleGroup.addElement(new <nameOfClass>());
-         teleGroup[0] = new Drive();
-         
-         thread = new Thread(this);
-         thread.start();
+         //thread = new Thread(this);
+         //thread.start();
          
      }
      
@@ -127,7 +130,7 @@ import java.util.*;
             Thread.sleep(10);
            }
            catch (InterruptedException e) {}
-           Hardware.dLCD.clear();
+           //Hardware.dLCD.clear();
       }
      }
      
@@ -135,7 +138,6 @@ import java.util.*;
          for(int i = 0; i < group.length; i++){
             group[i].start();
          }
-         System.out.println("reached 1");
          return true;
      }
      

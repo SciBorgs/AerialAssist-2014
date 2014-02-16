@@ -21,7 +21,7 @@ public class Shooter extends ScibotThread{
     }
     
     //Code to shoot
-    if(Hardware.remote.getRawButton(8)) {
+    if(Hardware.rightJoy.getTrigger()) {
         if(mode == SHOOT_MODE && isReady()) {
             shoot();
         }
@@ -35,32 +35,33 @@ public class Shooter extends ScibotThread{
   }
  
   public static void shoot(){// might need to split this up
-    //Code to shoot
+      //Code to shoot
+      //fling- charge piston, open claw, release latch
       Hardware.piston.set(DoubleSolenoid.Value.kForward);
-      Hardware.claw.set(Relay.Value.kForward);
-      
+      Hardware.claw.set(DoubleSolenoid.Value.kForward);
       Timer.delay(1);
-      
-      Hardware.gateLatch1.set(DoubleSolenoid.Value.kReverse);
-      Hardware.gateLatch2.set(DoubleSolenoid.Value.kReverse);
-      
+      Hardware.gateLatch.set(DoubleSolenoid.Value.kReverse);
       Timer.delay(2);
       
-      Hardware.claw.set(Relay.Value.kReverse);
+      //retract- retract piston, close latch, close claw
       
-      Hardware.gateLatch1.set(DoubleSolenoid.Value.kReverse);
-      Hardware.gateLatch2.set(DoubleSolenoid.Value.kReverse);
-      
-      Timer.delay(SHOOT_TIME);
+//      withdraw();
 
   }
   
   public static void catchBall() {
-      
+      //TODO: make sure it is in shoot position first
   }
   
   public static void prepare() {
-      
+      if(mode == SHOOT_MODE) {
+        Hardware.piston.set(DoubleSolenoid.Value.kForward);
+      }
+      else if(mode == CATCH_MODE) {
+          /*Move claw to ready position
+         
+          */
+      }
   }
   
   public static boolean isReady() {
@@ -72,20 +73,28 @@ public class Shooter extends ScibotThread{
   public static void changeMode() {
       if(mode == SHOOT_MODE) {
           mode = CATCH_MODE;
-          Hardware.gateLatch1.set(DoubleSolenoid.Value.kReverse);
-          Hardware.gateLatch2.set(DoubleSolenoid.Value.kReverse);
-          Timer.delay(1);
-          Hardware.piston.set(DoubleSolenoid.Value.kForward);
-          Timer.delay(1);
-          Hardware.piston.set(DoubleSolenoid.Value.kOff);
+          withdraw();
+          prepare();
       }
       else {
           mode = SHOOT_MODE;
-          Hardware.piston.set(DoubleSolenoid.Value.kReverse);
-          Timer.delay(1);
-          Hardware.gateLatch1.set(DoubleSolenoid.Value.kForward);
-          Hardware.gateLatch2.set(DoubleSolenoid.Value.kForward);
+          withdraw();
       }
+  }
+  
+  public static void withdraw() {
+      boolean on = false;
+      while(!Hardware.limit.get()){
+        if(!on){
+            Hardware.piston.set(DoubleSolenoid.Value.kReverse);
+            Timer.delay(1);
+        }else{
+            Hardware.piston.set(DoubleSolenoid.Value.kOff);
+            Timer.delay(0.2);
+        }
+        on = !on;
+      }
+      Hardware.piston.set(DoubleSolenoid.Value.kOff);
   }
 }
   

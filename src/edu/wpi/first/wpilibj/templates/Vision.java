@@ -22,7 +22,7 @@ public class Vision extends ScibotThread {
         System.out.println("Camera");
         cc = new CriteriaCollection();      // create the criteria for the particle filter
         System.out.println("CC");
-        cc.addCriteria(MeasurementType.IMAQ_MT_AREA, 20, 70000, false);                //not actual values(from last year)
+        cc.addCriteria(MeasurementType.IMAQ_MT_RATIO_OF_EQUIVALENT_RECT_SIDES, 20, 70000, false); 
         System.out.println("leave init");
         super.start();
     }
@@ -53,7 +53,7 @@ public class Vision extends ScibotThread {
         boolean hot = false;
         try {
             image = Hardware.camera.getImage();
-            thresholdImage = image.thresholdRGB(0, 103, 109, 255, 122, 255);
+            thresholdImage = image.thresholdRGB(0, 103, 109, 255, 134, 255);
             bigObjectsImage = thresholdImage.removeSmallObjects(false, 2);
             convexHullImage = bigObjectsImage.convexHull(false);
             filteredImage = convexHullImage.particleFilter(cc);
