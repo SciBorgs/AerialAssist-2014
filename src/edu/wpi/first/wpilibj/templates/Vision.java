@@ -22,7 +22,8 @@ public class Vision extends ScibotThread {
         System.out.println("Camera");
         cc = new CriteriaCollection();      // create the criteria for the particle filter
         System.out.println("CC");
-        cc.addCriteria(MeasurementType.IMAQ_MT_AREA, 20, 70000, false);                //not actual values(from last year)
+        cc.addCriteria(MeasurementType.IMAQ_MT_RATIO_OF_EQUIVALENT_RECT_SIDES(5.7,6,false);     //horizontal aspect ratio
+        cc.addCriteria(MeasurementType.IMAQ_MT_RATIO_OF_EQUIVALENT_RECT_SIDES(0.075,0.175,false);
         System.out.println("leave init");
         super.start();
     }
