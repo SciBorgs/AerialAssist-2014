@@ -24,7 +24,8 @@ public class SwitchCase extends ScibotThread {
                                     "Reverse"};
     private String[] names = {  "Piston",
                                 "Claw",
-                                "Gate Latch"};
+                                "Gate Latch",
+                                "Compressor"};
     private boolean compressorState = false;
     //Large array that holds controlSurface objects and values
 //    private Object[][] controlSurfaces = {
