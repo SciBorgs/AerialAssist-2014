@@ -27,7 +27,7 @@ public class SwitchCase extends ScibotThread {
                                 "Gate Latch",
                                 "Compressor"};
     private boolean compressorState = false;
-    //Large array that holds controlSurface objects and values
+//    Large array that holds controlSurface objects and values
 //    private Object[][] controlSurfaces = {
 //        //Piston object and values
 //        {"Piston", 
@@ -53,20 +53,21 @@ public class SwitchCase extends ScibotThread {
     
 //get button
     public void function() {
-        System.out.println("Function SwitchCase running");
+        //System.out.println("Function SwitchCase running");
         for (int i = 1; i <= 13; i++) {
             iLoveRice(i);
         }
 //        clawMotor();
         
         //Show which control surface is selected
+        Hardware.dLCD.clear();
         Hardware.dLCD.println(DriverStationLCD.Line.kUser3, 1, "Selected: " + names[surfIndex]);
         Hardware.dLCD.println(DriverStationLCD.Line.kUser4, 1, "Value: " + kStrings[valIndex]);
         Hardware.dLCD.updateLCD();
     }
     
     public void iLoveRice(int i){
-        System.out.println("Function iLoveRice running");
+        //System.out.println("Function iLoveRice running");
         if(!Hardware.remote.getRawButton(i)){
             return;
         }
@@ -85,23 +86,27 @@ public class SwitchCase extends ScibotThread {
                 break;
                 
             case 4:
-                if(surfIndex == 1) {
+                System.out.println(surfIndex);
+                if(surfIndex == 0) {
                     Hardware.piston.set(kValues[valIndex]);
                 }
-                else if(surfIndex == 2) {
-                    Hardware.claw.set(kValues[valIndex]);
+                else if(surfIndex == 1) {
+//                    Hardware.claw.set(kValues[valIndex]);
                 }
-                else if(surfIndex == 3) {
+                else if(surfIndex == 2) {
                     Hardware.gateLatch.set(kValues[valIndex]);
                 }
                 //this would be overrode by the compressor commands in shooter
-                else if(surfIndex == 4) {
+                else if(surfIndex == 3) {
+                    System.out.println(compressorState);
                     if(compressorState == false) {
-                        Hardware.compressor.start();
+//                        Hardware.compressor.start();
+                        Hardware.tempRelay.set(Relay.Value.kOn);
                         compressorState = !compressorState;
                     }
                     else{
-                        Hardware.compressor.stop();
+                        Hardware.tempRelay.set(Relay.Value.kOff);
+//                        Hardware.compressor.stop();
                         compressorState = !compressorState;
                     }
                 }
@@ -124,7 +129,7 @@ public class SwitchCase extends ScibotThread {
         }
         
         //Delay
-        Timer.delay(0.5);
+        Timer.delay(0.1);
     }
     
     //TODO: use left stick to control claw

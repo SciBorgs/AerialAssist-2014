@@ -47,6 +47,7 @@ public class Hardware {
     public static Ultrasonic rightSensor;
     
     public static Compressor compressor;
+    public static Relay tempRelay;
     
     public static DoubleSolenoid piston;
     public static DoubleSolenoid gateLatch;

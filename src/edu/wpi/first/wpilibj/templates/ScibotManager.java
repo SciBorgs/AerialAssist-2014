@@ -55,6 +55,7 @@ import java.util.*;
         //Hardware.clawMotor = new Jaguar(5);
         
 //        Hardware.gyro = new Gyro(1);
+        Hardware.tempRelay = new Relay(8);
         //double gyroState = Hardware.gyro.getAngle();
         //double uniGyro = Hardware.gyro.getAngle();
         
@@ -63,11 +64,11 @@ import java.util.*;
 //        Hardware.leftSensor = new Ultrasonic(1, 1); //FIX PORT
 //        Hardware.rightSensor = new Ultrasonic(1, 1); //FIX PORT
 //        
-        Hardware.compressor = new Compressor(1,8); //updated port
+//        Hardware.compressor = new Compressor(1, 8); //updated port
 //        
         Hardware.gateLatch = new DoubleSolenoid(1,2);
         Hardware.piston = new DoubleSolenoid(3,4); //updated port
-//        Hardware.claw = new DoubleSolenoid(5, 6); //updated port
+        //Hardware.claw = new DoubleSolenoid(5, 6); //updated port
         
 //        Hardware.relay = new Relay(1); //FIX PORT
         
