@@ -1,100 +1,127 @@
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Timer;
 
 public class Shooter extends ScibotThread{
-  
-  public static final int SHOOT_TIME = 1; //Time, in seconds, it takes to shoot
-  public static final int SHOOT_MODE = 1;
-  public static final int CATCH_MODE = 2;
-  public static int mode;
-  
-  public void function(){
-    //Code to turn compressor on and off based on value of pressure sensor
-    if(!Hardware.compressor.getPressureSwitchValue()) {
-      Hardware.compressor.start();
-    }
-    else {
-      Hardware.compressor.stop();
-    }
     
-    //Code to shoot
-    if(Hardware.rightJoy.getTrigger()) {
-        if(mode == SHOOT_MODE && isReady()) {
-            shoot();
-        }
-        else if(mode == CATCH_MODE) {
-            catchBall();
+    public static final int SHOOT_TIME = 1; //Time, in seconds, it takes to shoot
+    public static final int SHOOT_MODE = 1;
+    public static final int CATCH_MODE = 2;
+    public static int mode;
+    static final double CLAW_RETRACT_TIME = 1;
+    static final double PISTON_RETRACT_TIME = 1;
+    static final double PISTON_WAIT_TIME = 0.2;
+    static final double CATCH_MODE_PISTON_TIME = 2;
+    static final double CHARGE_TIME = 1;
+    static final double SWING_TIME = 2;
+    
+    static final Value kForward = DoubleSolenoid.Value.kForward;
+    static final Value kReverse = DoubleSolenoid.Value.kReverse;
+    static final Value kOff = DoubleSolenoid.Value.kOff;
+    
+    public void function(){
+        //Code to turn compressor on and off based on value of pressure sensor
+        if(!Hardware.compressor.getPressureSwitchValue()) {
+            Hardware.compressor.start();
         }
         else {
+            Hardware.compressor.stop();
+        }
+        
+        //Code to shoot
+        if(Hardware.rightJoy.getTrigger()) {
+            if(mode == SHOOT_MODE /*&& isReady()*/) {
+                shoot();
+                withdraw();
+            }
+            else if(mode == CATCH_MODE) {
+                catchBall();
+            }
+            
+        }else {
             prepare();
         }
     }
-  }
- 
-  public static void shoot(){// might need to split this up
-      //Code to shoot
-      //fling- charge piston, open claw, release latch
-      Hardware.piston.set(DoubleSolenoid.Value.kForward);
-      Hardware.claw.set(DoubleSolenoid.Value.kForward);
-      Timer.delay(1);
-      Hardware.gateLatch.set(DoubleSolenoid.Value.kReverse);
-      Timer.delay(2);
-      
-      //retract- retract piston, close latch, close claw
-      
-//      withdraw();
-
-  }
-  
-  public static void catchBall() {
-      //TODO: make sure it is in shoot position first
-  }
-  
-  public static void prepare() {
-      if(mode == SHOOT_MODE) {
-        Hardware.piston.set(DoubleSolenoid.Value.kForward);
-      }
-      else if(mode == CATCH_MODE) {
-          /*Move claw to ready position
-         
-          */
-      }
-  }
-  
-  public static boolean isReady() {
-      return Hardware.piston.get() == DoubleSolenoid.Value.kForward;// I know I know "what about claw" dwai
- //will add claw later 
-  }
-  
-  //Button changes mode
-  public static void changeMode() {
-      if(mode == SHOOT_MODE) {
-          mode = CATCH_MODE;
-          withdraw();
-          prepare();
-      }
-      else {
-          mode = SHOOT_MODE;
-          withdraw();
-      }
-  }
-  
-  public static void withdraw() {
-      boolean on = false;
-      while(!Hardware.limit.get()){
-        if(!on){
-            Hardware.piston.set(DoubleSolenoid.Value.kReverse);
-            Timer.delay(1);
-        }else{
-            Hardware.piston.set(DoubleSolenoid.Value.kOff);
-            Timer.delay(0.2);
+    
+    //fling- charge piston, open claw, release latch
+    public static void shoot(){// might need to split this up
+        Hardware.clawMotor.set(0);//turn off motor so the thing doesn't shake
+        Hardware.piston.set(kForward);
+        Hardware.claw.set(kForward);
+        Timer.delay(CHARGE_TIME);
+        Hardware.gateLatch.set(kReverse);
+        Timer.delay(SWING_TIME);
+    }
+    
+    //retract- retract piston, close latch, close claw
+    public static void withdraw() {
+        //withdraw piston
+        boolean on = false;
+        while(!Hardware.limit.get()){
+            if(!on){
+                Hardware.piston.set(kReverse);
+                Timer.delay(PISTON_RETRACT_TIME);
+            }else{
+                Hardware.piston.set(kOff);
+                Timer.delay(PISTON_WAIT_TIME);
+            }
+            on = !on;
         }
-        on = !on;
-      }
-      Hardware.piston.set(DoubleSolenoid.Value.kOff);
-  }
+        Hardware.piston.set(kOff);
+        
+        //close latch
+        Hardware.gateLatch.set(kForward);
+        
+        //withdraw claw
+        Hardware.claw.set(kReverse);
+        Timer.delay(CLAW_RETRACT_TIME); //same time is used for gatelatch
+        Hardware.claw.set(kOff);
+        Hardware.gateLatch.set(kOff);
+    }
+    
+    public static void prepare() {
+        Hardware.clawMotor.set(0.7);
+        //        if(mode == SHOOT_MODE) {
+        Hardware.piston.set(kForward);
+        //        }
+        //        else if(mode == CATCH_MODE) {
+        //
+        //        }
+    }
+    
+    public static void catchBall() {
+        Hardware.gateLatch.set(kReverse);
+        Hardware.piston.set(kForward);
+        Hardware.claw.set(kForward);
+        Timer.delay(CATCH_MODE_PISTON_TIME);
+        Hardware.piston.set(kOff);
+        Hardware.gateLatch.set(kOff);
+        Timer.delay(CATCH_MODE_PISTON_TIME-CLAW_RETRACT_TIME);
+        Hardware.claw.set(kOff);
+    }
+    
+    //robot state should already be neutral whenever the mode is set to shoot
+    //    public static boolean isReady() {
+    //        return Hardware.piston.get() == kForward;// I know I know "what about claw" dwai
+    //        //TODO will add claw later
+    //    }
+    
+    //Button changes mode
+    //FIXME this method is never used
+    public static void changeMode() {
+        if(mode == SHOOT_MODE) {
+            mode = CATCH_MODE;
+            withdraw();
+            //            prepare(); should be handled by function loop
+        }
+        else {
+            mode = SHOOT_MODE;
+            //withdraw(); should already been in rest position
+        }
+    }
+    
 }
-  
+
