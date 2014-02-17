@@ -25,6 +25,7 @@ public class SwitchCase extends ScibotThread {
     private String[] names = {  "Piston",
                                 "Claw",
                                 "Gate Latch"};
+    private boolean compressorState = false;
     //Large array that holds controlSurface objects and values
 //    private Object[][] controlSurfaces = {
 //        //Piston object and values
@@ -93,14 +94,16 @@ public class SwitchCase extends ScibotThread {
                     Hardware.gateLatch.set(kValues[valIndex]);
                 }
                 //this would be overrode by the compressor commands in shooter
-//                else if(surfIndex == 4) {
-//                    if(valIndex == 1) {
-//                        Hardware.compressor.start();
-//                    }
-//                    else if(valIndex == 2) {
-//                        Hardware.compressor.stop();
-//                    }
-//                }
+                else if(surfIndex == 4) {
+                    if(compressorState == false) {
+                        Hardware.compressor.start();
+                        compressorState = !compressorState;
+                    }
+                    else{
+                        Hardware.compressor.stop();
+                        compressorState = !compressorState;
+                    }
+                }
                 break;
                 
             case 5:
