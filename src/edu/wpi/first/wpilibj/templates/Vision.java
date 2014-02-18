@@ -13,11 +13,10 @@ public class Vision extends ScibotThread {
 
     CriteriaCollection cc;
     Boolean targetHot;
-    float horizontalLow = (float) 5.7;
-    float horizontalHigh = (float) 6;
-    float verticalLow = (float) 0.075;
     float verticalHigh = (float) 0.175;
-    
+    float verticalLow = (float) 0.075;
+    float horizontalHigh = 6;  
+    float horizontalLow = (float) 5.7;
     public void start() {
         Hardware.camera.writeExposurePriority(AxisCamera.ExposurePriorityT.frameRate);//NEED THIS
         Hardware.camera.writeColorLevel(100);
@@ -26,7 +25,7 @@ public class Vision extends ScibotThread {
         System.out.println("Camera");
         cc = new CriteriaCollection();      // create the criteria for the particle filter
         System.out.println("CC");
-        cc.addCriteria(MeasurementType.IMAQ_MT_RATIO_OF_EQUIVALENT_RECT_SIDES, horizontalLow, horizontalHigh,false);     //horizontal aspect ratio
+        cc.addCriteria(MeasurementType.IMAQ_MT_RATIO_OF_EQUIVALENT_RECT_SIDES, horizontalLow, horizontalHigh, false);     //horizontal aspect ratio
         cc.addCriteria(MeasurementType.IMAQ_MT_RATIO_OF_EQUIVALENT_RECT_SIDES, verticalLow, verticalHigh, false);
         System.out.println("leave init");
         super.start();
