@@ -86,6 +86,7 @@ public class SwitchCase extends ScibotThread {
                 break;
                 
             case 4:
+                //lol You can put a switch case inside this switch case
                 System.out.println(surfIndex);
                 if(surfIndex == 0) {
                     Hardware.piston.set(kValues[valIndex]);
