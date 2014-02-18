@@ -10,7 +10,7 @@ public class Shooter extends ScibotThread{
     public static final int SHOOT_TIME = 1; //Time, in seconds, it takes to shoot
     public static final int SHOOT_MODE = 1;
     public static final int CATCH_MODE = 2;
-    public static int mode;
+    public static int mode = SHOOT_MODE;
     static final double CLAW_RETRACT_TIME = 1;
     static final double PISTON_RETRACT_TIME = 1;
     static final double PISTON_WAIT_TIME = 0.2;
@@ -24,12 +24,12 @@ public class Shooter extends ScibotThread{
     
     public void function(){
         //Code to turn compressor on and off based on value of pressure sensor
-        if(!Hardware.compressor.getPressureSwitchValue()) {
-            Hardware.compressor.start();
-        }
-        else {
-            Hardware.compressor.stop();
-        }
+//        if(!Hardware.compressor.getPressureSwitchValue()) {
+//            Hardware.compressor.start();
+//        }
+//        else {
+//            Hardware.compressor.stop();
+//        }
         
         //Code to shoot
         if(Hardware.rightJoy.getTrigger()) {
@@ -42,15 +42,15 @@ public class Shooter extends ScibotThread{
             }
             
         }else {
-            prepare();
+            //prepare();
         }
     }
     
     //fling- charge piston, open claw, release latch
     public static void shoot(){// might need to split this up
-        Hardware.clawMotor.set(0);//turn off motor so the thing doesn't shake
+//        Hardware.clawMotor.set(0);//turn off motor so the thing doesn't shake
         Hardware.piston.set(kForward);
-        Hardware.claw.set(kForward);
+//        Hardware.claw.set(kForward);
         Timer.delay(CHARGE_TIME);
         Hardware.gateLatch.set(kReverse);
         Timer.delay(SWING_TIME);
@@ -60,7 +60,7 @@ public class Shooter extends ScibotThread{
     public static void withdraw() {
         //withdraw piston
         boolean on = false;
-        while(!Hardware.limit.get()){
+        while(Hardware.limit.getValue() < 0){
             if(!on){
                 Hardware.piston.set(kReverse);
                 Timer.delay(PISTON_RETRACT_TIME);
@@ -76,14 +76,14 @@ public class Shooter extends ScibotThread{
         Hardware.gateLatch.set(kForward);
         
         //withdraw claw
-        Hardware.claw.set(kReverse);
+//        Hardware.claw.set(kReverse);
         Timer.delay(CLAW_RETRACT_TIME); //same time is used for gatelatch
-        Hardware.claw.set(kOff);
+//        Hardware.claw.set(kOff);
         Hardware.gateLatch.set(kOff);
     }
     
     public static void prepare() {
-        Hardware.clawMotor.set(0.7);
+//        Hardware.clawMotor.set(0.7);
         //        if(mode == SHOOT_MODE) {
         Hardware.piston.set(kForward);
         //        }
@@ -95,12 +95,12 @@ public class Shooter extends ScibotThread{
     public static void catchBall() {
         Hardware.gateLatch.set(kReverse);
         Hardware.piston.set(kForward);
-        Hardware.claw.set(kForward);
+//        Hardware.claw.set(kForward);
         Timer.delay(CATCH_MODE_PISTON_TIME);
         Hardware.piston.set(kOff);
         Hardware.gateLatch.set(kOff);
-        Timer.delay(CATCH_MODE_PISTON_TIME-CLAW_RETRACT_TIME);
-        Hardware.claw.set(kOff);
+//        Timer.delay(CATCH_MODE_PISTON_TIME-CLAW_RETRACT_TIME);
+//        Hardware.claw.set(kOff);
     }
     
     //robot state should already be neutral whenever the mode is set to shoot

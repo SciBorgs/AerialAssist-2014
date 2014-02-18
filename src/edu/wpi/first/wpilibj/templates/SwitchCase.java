@@ -63,6 +63,8 @@ public class SwitchCase extends ScibotThread {
         Hardware.dLCD.clear();
         Hardware.dLCD.println(DriverStationLCD.Line.kUser3, 1, "Selected: " + names[surfIndex]);
         Hardware.dLCD.println(DriverStationLCD.Line.kUser4, 1, "Value: " + kStrings[valIndex]);
+        Hardware.dLCD.println(DriverStationLCD.Line.kUser5, 1, "Limit val: " + Hardware.limit.getValue());
+        Hardware.dLCD.println(DriverStationLCD.Line.kUser6, 1, "piston val: " + Hardware.piston.get());
         Hardware.dLCD.updateLCD();
     }
     
@@ -86,7 +88,6 @@ public class SwitchCase extends ScibotThread {
                 break;
                 
             case 4:
-                System.out.println(surfIndex);
                 if(surfIndex == 0) {
                     Hardware.piston.set(kValues[valIndex]);
                 }
@@ -98,15 +99,15 @@ public class SwitchCase extends ScibotThread {
                 }
                 //this would be overrode by the compressor commands in shooter
                 else if(surfIndex == 3) {
-                    System.out.println(compressorState);
+//                    System.out.println(compressorState);
                     if(compressorState == false) {
-//                        Hardware.compressor.start();
-                        Hardware.tempRelay.set(Relay.Value.kOn);
+//                        Hardware.compressor.setRelayValue(Relay.Value.kOn);
+                        Hardware.tempRelay.set(Relay.Value.kForward);
                         compressorState = !compressorState;
                     }
                     else{
                         Hardware.tempRelay.set(Relay.Value.kOff);
-//                        Hardware.compressor.stop();
+//                        Hardware.compressor.setRelayValue(Relay.Value.kOff);
                         compressorState = !compressorState;
                     }
                 }
@@ -129,30 +130,30 @@ public class SwitchCase extends ScibotThread {
         }
         
         //Delay
-        Timer.delay(0.1);
+        Timer.delay(0.3);
     }
     
     //TODO: use left stick to control claw
-    public static void clawMotor(){
-        if(Hardware.remote.getY() < 0.1){
-            Hardware.clawMotor.set(0.5);
-        }
-        else if(Math.abs(Hardware.remote.getY()) > -0.1){
-            Hardware.clawMotor.set(-0.5);
-        }
-    }
-    
-    //TODO: make it useable
-    public static void clawExtension() {
-        if(Hardware.remote.getX() > 0.1) {
-            Hardware.piston.set(DoubleSolenoid.Value.kForward);
-            Timer.delay(0.5);
-            Hardware.piston.set(DoubleSolenoid.Value.kOff);
-        }
-        else if(Hardware.remote.getX() > -0.1) {
-            Hardware.piston.set(DoubleSolenoid.Value.kReverse);
-            Timer.delay(0.5);
-            Hardware.piston.set(DoubleSolenoid.Value.kOff);
-        }
-    }
+//    public static void clawMotor(){
+//        if(Hardware.remote.getY() < 0.1){
+//            Hardware.clawMotor.set(0.5);
+//        }
+//        else if(Math.abs(Hardware.remote.getY()) > -0.1){
+//            Hardware.clawMotor.set(-0.5);
+//        }
+//    }
+//    
+//    //TODO: make it useable
+//    public static void clawExtension() {
+//        if(Hardware.remote.getX() > 0.1) {
+//            Hardware.piston.set(DoubleSolenoid.Value.kForward);
+//            Timer.delay(0.5);
+//            Hardware.piston.set(DoubleSolenoid.Value.kOff);
+//        }
+//        else if(Hardware.remote.getX() > -0.1) {
+//            Hardware.piston.set(DoubleSolenoid.Value.kReverse);
+//            Timer.delay(0.5);
+//            Hardware.piston.set(DoubleSolenoid.Value.kOff);
+//        }
+//    }
 }

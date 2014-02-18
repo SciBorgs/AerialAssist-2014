@@ -8,7 +8,9 @@
  package edu.wpi.first.wpilibj.templates;
  
  
+import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.Gyro;
@@ -39,7 +41,7 @@ import java.util.*;
 //     private Thread thread; //Thread to manage cpu/bandwidth usage
      
      //Increase the array size when threads are added
-     private ScibotThread[] teleGroup = {/*new Drive(), */new SwitchCase()};
+     private ScibotThread[] teleGroup = {new Drive(), new SwitchCase()};
      private ScibotThread[] autoGroup = {new Vision()};
      private boolean teleRunning, autoRunning;
      
@@ -67,8 +69,11 @@ import java.util.*;
 //        Hardware.compressor = new Compressor(1, 8); //updated port
 //        
         Hardware.gateLatch = new DoubleSolenoid(1,2);
+        Hardware.gateLatch.set(DoubleSolenoid.Value.kOff);
         Hardware.piston = new DoubleSolenoid(3,4); //updated port
+        Hardware.piston.set(DoubleSolenoid.Value.kOff);
         //Hardware.claw = new DoubleSolenoid(5, 6); //updated port
+        Hardware.limit = new AnalogChannel(1);
         
 //        Hardware.relay = new Relay(1); //FIX PORT
         

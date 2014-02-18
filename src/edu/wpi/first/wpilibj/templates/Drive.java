@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.Joystick;
 public class Drive extends ScibotThread {
     
     double rightVal, leftVal;
-    double direction = 1;
+    boolean direction = true;
     
     public void function() {   
         //Drive 
@@ -30,15 +30,21 @@ public class Drive extends ScibotThread {
         Hardware.dLCD.updateLCD();
         //System.out.println(rightVal + ", " + leftVal);
         
+        if(direction){
 //        Hardware.drive.tankDrive(leftVal, rightVal);
-        Hardware.frontRightTalon.set(rightVal * direction);
-        Hardware.backRightTalon.set(rightVal * direction);
-        Hardware.frontLeftTalon.set(leftVal * -direction);
-        Hardware.backLeftTalon.set(leftVal * -direction);
-        
+        Hardware.frontRightTalon.set(rightVal);
+        Hardware.backRightTalon.set(rightVal);
+        Hardware.frontLeftTalon.set(-leftVal);
+        Hardware.backLeftTalon.set(-leftVal);
+        }else{
+           Hardware.frontRightTalon.set(leftVal);
+        Hardware.backRightTalon.set(leftVal);
+        Hardware.frontLeftTalon.set(-rightVal);
+        Hardware.backLeftTalon.set(-rightVal); 
+        }
         //Switch where the "front" of the robot is
         if(Hardware.leftJoy.getTrigger()) {
-            direction = -direction;
+            direction = !direction;
         }        
     }
 }

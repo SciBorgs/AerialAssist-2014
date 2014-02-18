@@ -4,6 +4,7 @@
  */
 package edu.wpi.first.wpilibj.templates;
 
+import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
@@ -29,7 +30,7 @@ public class Hardware {
     public static Talon frontLeftTalon;
     public static Talon backRightTalon;
     public static Talon backLeftTalon;
-    public static Jaguar clawMotor;
+//    public static Jaguar clawMotor;
     //Robotdrive
     // public static RobotDrive drive = new RobotDrive(2,4,1,3);
     
@@ -51,10 +52,10 @@ public class Hardware {
     
     public static DoubleSolenoid piston;
     public static DoubleSolenoid gateLatch;
-    public static DoubleSolenoid claw;
+//    public static DoubleSolenoid claw;
     //public static DoubleSolenoid piston = new DoubleSolenoid(1,2);
     //public static Compressor compress = new Compressor(1, 2);
     //Camera
     public static AxisCamera camera;
-    public static DigitalInput limit;
+    public static AnalogChannel limit;
 }
