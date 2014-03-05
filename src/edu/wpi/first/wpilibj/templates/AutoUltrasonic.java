@@ -11,11 +11,14 @@ public class AutoUltrasonic extends ScibotThread {
     double distance = 1;
     boolean ready = false;
     
+    //Overriden start method, resets ready to false to restart autonomous cycle
     public void start() {
         ready = false;
         super.start();
     }
     
+    //Function that aligns and gets the robot to the proper distance, then 
+    //
     public void function() {
         if(!ready) {
             while(Math.abs(leftValue - rightValue) > BUFFER) {
