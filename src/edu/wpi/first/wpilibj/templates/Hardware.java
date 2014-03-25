@@ -30,9 +30,6 @@ public class Hardware {
     public static Talon frontLeftTalon;
     public static Talon backRightTalon;
     public static Talon backLeftTalon;
-//    public static Jaguar clawMotor;
-    //Robotdrive
-    // public static RobotDrive drive = new RobotDrive(2,4,1,3);
     
     //Gyro for drive code
     public static Gyro gyro;
@@ -52,8 +49,6 @@ public class Hardware {
     
     public static DoubleSolenoid piston;
     public static DoubleSolenoid gateLatch;
-//    public static DoubleSolenoid claw;
-    //public static DoubleSolenoid piston = new DoubleSolenoid(1,2);
     //public static Compressor compress = new Compressor(1, 2);
     //Camera
     public static AxisCamera camera;

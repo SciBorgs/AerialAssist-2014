@@ -26,28 +26,7 @@ public class SwitchCase extends ScibotThread {
                                 "Claw",
                                 "Gate Latch",
                                 "Compressor"};
-    private boolean compressorState = false;
-//    Large array that holds controlSurface objects and values
-//    private Object[][] controlSurfaces = {
-//        //Piston object and values
-//        {"Piston", 
-//            DoubleSolenoid.Value.kForward,"Forward", 
-//            DoubleSolenoid.Value.kOff, "Off", 
-//            DoubleSolenoid.Value.kReverse, "Reverse"}, 
-//        //Claw objects and values
-//        {"Claw", 
-//            DoubleSolenoid.Value.kForward,"Forward", 
-//            DoubleSolenoid.Value.kOff, "Off", 
-//            DoubleSolenoid.Value.kReverse, "Reverse"}, 
-//        //GateLatch objects and values
-//        {"Gate Latch", 
-//            DoubleSolenoid.Value.kForward, "Forward", 
-//            DoubleSolenoid.Value.kOff, "Off", 
-//            DoubleSolenoid.Value.kReverse, "Reverse"},
-//        {"Compressor",
-//            "Start", "Start",
-//            "Stop", "Stop"}};    
-    
+    private boolean compressorState = false; 
     
     private int surfIndex = 0, valIndex = 1;
     
@@ -132,28 +111,4 @@ public class SwitchCase extends ScibotThread {
         //Delay
         Timer.delay(0.3);
     }
-    
-    //TODO: use left stick to control claw
-//    public static void clawMotor(){
-//        if(Hardware.remote.getY() < 0.1){
-//            Hardware.clawMotor.set(0.5);
-//        }
-//        else if(Math.abs(Hardware.remote.getY()) > -0.1){
-//            Hardware.clawMotor.set(-0.5);
-//        }
-//    }
-//    
-//    //TODO: make it useable
-//    public static void clawExtension() {
-//        if(Hardware.remote.getX() > 0.1) {
-//            Hardware.piston.set(DoubleSolenoid.Value.kForward);
-//            Timer.delay(0.5);
-//            Hardware.piston.set(DoubleSolenoid.Value.kOff);
-//        }
-//        else if(Hardware.remote.getX() > -0.1) {
-//            Hardware.piston.set(DoubleSolenoid.Value.kReverse);
-//            Timer.delay(0.5);
-//            Hardware.piston.set(DoubleSolenoid.Value.kOff);
-//        }
-//    }
 }

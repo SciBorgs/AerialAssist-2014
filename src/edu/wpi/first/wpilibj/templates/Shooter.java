@@ -48,9 +48,7 @@ public class Shooter extends ScibotThread{
     
     //fling- charge piston, open claw, release latch
     public static void shoot(){// might need to split this up
-//        Hardware.clawMotor.set(0);//turn off motor so the thing doesn't shake
         Hardware.piston.set(kForward);
-//        Hardware.claw.set(kForward);
         Timer.delay(CHARGE_TIME);
         Hardware.gateLatch.set(kReverse);
         Timer.delay(SWING_TIME);
@@ -76,9 +74,7 @@ public class Shooter extends ScibotThread{
         Hardware.gateLatch.set(kForward);
         
         //withdraw claw
-//        Hardware.claw.set(kReverse);
         Timer.delay(CLAW_RETRACT_TIME); //same time is used for gatelatch
-//        Hardware.claw.set(kOff);
         Hardware.gateLatch.set(kOff);
     }
     
@@ -95,19 +91,10 @@ public class Shooter extends ScibotThread{
     public static void catchBall() {
         Hardware.gateLatch.set(kReverse);
         Hardware.piston.set(kForward);
-//        Hardware.claw.set(kForward);
         Timer.delay(CATCH_MODE_PISTON_TIME);
         Hardware.piston.set(kOff);
         Hardware.gateLatch.set(kOff);
-//        Timer.delay(CATCH_MODE_PISTON_TIME-CLAW_RETRACT_TIME);
-//        Hardware.claw.set(kOff);
     }
-    
-    //robot state should already be neutral whenever the mode is set to shoot
-    //    public static boolean isReady() {
-    //        return Hardware.piston.get() == kForward;// I know I know "what about claw" dwai
-    //        //TODO will add claw later
-    //    }
     
     //Button changes mode
     //FIXME this method is never used

@@ -38,8 +38,6 @@ import java.util.*;
       * This function is called once each time the robot enters autonomous mode.
       */
      
-//     private Thread thread; //Thread to manage cpu/bandwidth usage
-     
      //Increase the array size when threads are added
      private ScibotThread[] teleGroup = {new Drive(), new SwitchCase()};
      private ScibotThread[] autoGroup = {new Vision()};
@@ -54,20 +52,15 @@ import java.util.*;
         Hardware.backRightTalon = new Talon(10);
         Hardware.frontLeftTalon = new Talon(1);
         Hardware.backLeftTalon = new Talon(2);
-        //Hardware.clawMotor = new Jaguar(5);
         
-//        Hardware.gyro = new Gyro(1);
         Hardware.tempRelay = new Relay(8);
-        //double gyroState = Hardware.gyro.getAngle();
-        //double uniGyro = Hardware.gyro.getAngle();
         
         Hardware.dLCD = DriverStationLCD.getInstance();
         
 //        Hardware.leftSensor = new Ultrasonic(1, 1); //FIX PORT
 //        Hardware.rightSensor = new Ultrasonic(1, 1); //FIX PORT
-//        
 //        Hardware.compressor = new Compressor(1, 8); //updated port
-//        
+        
         Hardware.gateLatch = new DoubleSolenoid(1,2);
         Hardware.gateLatch.set(DoubleSolenoid.Value.kOff);
         Hardware.piston = new DoubleSolenoid(3,4); //updated port
@@ -83,21 +76,6 @@ import java.util.*;
          //ScibotThread
          teleRunning = false;
          autoRunning = false;
-         
-         //Add all neccesary threads to the auto thread group
-         //autoGroup.addElement(new <nameOfClass>());
-//         autoGroup[0] = new AutoUltrasonic();
-//         autoGroup[0] = new Vision();
-//         //autoGroup[1] = new AutoUltrasonic();
-//         
-//         //Add all neccesary threads to the tele thread group
-//         //teleGroup.addElement(new <nameOfClass>());
-//         teleGroup[0] = new Drive();
-//         teleGroup[1] = new SwitchCase();
-//         //teleGroup[2] = new Shooter();
-         
-         //thread = new Thread(this);
-         //thread.start();
          
      }
      
@@ -130,17 +108,6 @@ import java.util.*;
             teleRunning = startGroup(teleGroup);
         } 
      }
-     
-     //Thread slow down feature is replaced by scibot thread
-//     public void run() {
-//      while(!thread.isAlive()) {
-//           try {
-//            Thread.sleep(10);
-//           }
-//           catch (InterruptedException e) {}
-//           //Hardware.dLCD.clear();
-//      }
-//     }
      
      public boolean startGroup(ScibotThread[] group){
          for(int i = 0; i < group.length; i++){
