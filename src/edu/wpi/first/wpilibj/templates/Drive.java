@@ -37,7 +37,7 @@ public class Drive extends ScibotThread {
         Hardware.frontLeftTalon.set(-leftVal);
         Hardware.backLeftTalon.set(-leftVal);
         }else{
-           Hardware.frontRightTalon.set(leftVal);
+        Hardware.frontRightTalon.set(leftVal);
         Hardware.backRightTalon.set(leftVal);
         Hardware.frontLeftTalon.set(-rightVal);
         Hardware.backLeftTalon.set(-rightVal); 

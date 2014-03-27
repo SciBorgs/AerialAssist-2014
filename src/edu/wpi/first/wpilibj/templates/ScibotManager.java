@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj.camera.AxisCamera;
 import edu.wpi.first.wpilibj.image.CriteriaCollection;
 import edu.wpi.first.wpilibj.image.NIVision;
 import java.util.*;
+import edu.wpi.first.wpilibj.Timer;
  
  /**
   * The VM is configured to automatically run this class, and to call the
@@ -41,12 +42,13 @@ import java.util.*;
      Hardware hardware = new Hardware();
      //Increase the array size when threads are added
      private ScibotThread[] teleGroup = {new Drive(), new SwitchCase()};
-     private ScibotThread[] autoGroup = {new Vision()};
+     private ScibotThread[] autoGroup = {};
      private boolean teleRunning, autoRunning;
      
      public void robotInit() {
          //Establish booleans to represent whether the thread group is running, all classes need to extend
          //ScibotThread
+         Hardware.compressor.start();
          teleRunning = false;
          autoRunning = false;
          
@@ -62,12 +64,24 @@ import java.util.*;
      }
      
      public void autonomous() {
-        if(teleRunning){
-            teleRunning = stopGroup(teleGroup);
-        } 
-        if(!autoRunning){
-            autoRunning = startGroup(autoGroup);
-        } 
+//        if(teleRunning){
+//            teleRunning = stopGroup(teleGroup);
+//        } 
+//        if(!autoRunning){
+//            autoRunning = startGroup(autoGroup);
+//        }
+         Shooter.withdraw();
+         Shooter.shoot();
+         Shooter.withdraw();
+         Hardware.frontRightTalon.set(1);
+         Hardware.backRightTalon.set(1);
+         Hardware.frontLeftTalon.set(-1);
+         Hardware.backLeftTalon.set(-1);
+         Timer.delay(1.5f);
+         Hardware.frontRightTalon.set(0);
+         Hardware.backRightTalon.set(0);
+         Hardware.frontLeftTalon.set(0);
+         Hardware.backLeftTalon.set(0);
      }
  
      /**

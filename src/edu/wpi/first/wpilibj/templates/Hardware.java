@@ -64,13 +64,13 @@ public class Hardware {
         frontLeftTalon = new Talon(1);
         backLeftTalon = new Talon(2);
         
-        tempRelay = new Relay(8);
+//        tempRelay = new Relay(1);
         
         dLCD = DriverStationLCD.getInstance();
         
 //        Hardware.leftSensor = new Ultrasonic(1, 1); //FIX PORT
 //        Hardware.rightSensor = new Ultrasonic(1, 1); //FIX PORT
-//        Hardware.compressor = new Compressor(1, 8); //updated port
+        compressor = new Compressor(10, 1); //updated port
         
         gateLatch = new DoubleSolenoid(1,2);
         gateLatch.set(DoubleSolenoid.Value.kOff);

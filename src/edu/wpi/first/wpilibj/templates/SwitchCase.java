@@ -26,7 +26,7 @@ public class SwitchCase extends ScibotThread {
                                 "Claw",
                                 "Gate Latch",
                                 "Compressor"};
-    private boolean compressorState = false; 
+    private boolean compressorState = true; 
     
     private int surfIndex = 0, valIndex = 1;
     private boolean gate = false;
@@ -35,15 +35,26 @@ public class SwitchCase extends ScibotThread {
     public void function() {
         //System.out.println("Function SwitchCase running");
         for (int i = 1; i <= 13; i++) {
-            iLoveRice(i);
+            rice2(i);
         }
+        
+//        if(!Hardware.compressor.getPressureSwitchValue()){
+//            compressorState = false;
+//        }
+//        if(compressorState){
+////            Hardware.tempRelay.set(Relay.Value.kOn);
+//            Hardware.compressor.start();
+//        }else{
+////            Hardware.tempRelay.set(Relay.Value.kOff);
+//            Hardware.compressor.stop();
+//        }
         
         //Show which control surface is selected
         Hardware.dLCD.clear();
-        Hardware.dLCD.println(DriverStationLCD.Line.kUser3, 1, "Selected: " + names[surfIndex]);
-        Hardware.dLCD.println(DriverStationLCD.Line.kUser4, 1, "Value: " + kStrings[valIndex]);
-        Hardware.dLCD.println(DriverStationLCD.Line.kUser5, 1, "Limit val: " + Hardware.limit.getValue());
-        Hardware.dLCD.println(DriverStationLCD.Line.kUser6, 1, "piston val: " + Hardware.piston.get());
+        Hardware.dLCD.println(DriverStationLCD.Line.kUser3, 1, "gate latch: " + Hardware.gateLatch.toString());
+        Hardware.dLCD.println(DriverStationLCD.Line.kUser4, 1, "Pressure value: " + Hardware.compressor.getPressureSwitchValue());
+        Hardware.dLCD.println(DriverStationLCD.Line.kUser5, 1, "Pressure enabled: " + Hardware.compressor.enabled());
+//        Hardware.dLCD.println(DriverStationLCD.Line.kUser6, 1, "piston val: " + Hardware.piston.get());
         Hardware.dLCD.updateLCD();
     }
     
@@ -117,7 +128,7 @@ public class SwitchCase extends ScibotThread {
             return;
         }
         
-        System.out.println("Button Pressed: " + i);
+//        System.out.println("Button Pressed: " + i);
         //functions
         switch(i) {
             case 1:
@@ -139,6 +150,16 @@ public class SwitchCase extends ScibotThread {
                 break;
             case 4:
                 Hardware.piston.set(Value.kForward);
+                break;
+            case 6:
+                if(compressorState){
+                    Hardware.compressor.stop();
+                }else{
+                    Hardware.compressor.start();
+                }
+                compressorState = !compressorState;
+//                System.out.println(compressorState);
+                Timer.delay(0.5);
                 break;
             default:
                 break;

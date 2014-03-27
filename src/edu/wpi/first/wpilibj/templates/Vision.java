@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.image.CriteriaCollection;
 public class Vision extends ScibotThread {
 
     CriteriaCollection cc;
-    Boolean targetHot;
+    static Boolean targetHot;
     float verticalHigh = (float) 0.175;
     float verticalLow = (float) 0.075;
     float horizontalHigh = 6;  

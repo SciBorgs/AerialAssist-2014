@@ -20,6 +20,11 @@ public class AutoUltrasonic extends ScibotThread {
     //Function that aligns and gets the robot to the proper distance, then 
     //
     public void function() {
+        if(!Vision.targetHot.booleanValue()) return;
+        else {
+            Shooter.shoot();
+            Shooter.withdraw();
+        }
         if(!ready) {
             while(Math.abs(leftValue - rightValue) > BUFFER) {
                 align();
