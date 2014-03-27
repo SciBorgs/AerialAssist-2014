@@ -11,7 +11,7 @@ public class Shooter extends ScibotThread{
     public static final int SHOOT_MODE = 1;
     public static final int CATCH_MODE = 2;
     public static int mode = SHOOT_MODE;
-    static final double CLAW_RETRACT_TIME = 1;
+    static final double CLAW_RETRACT_TIME = 0.5;
     static final double PISTON_RETRACT_TIME = 1;
     static final double PISTON_WAIT_TIME = 0.2;
     static final double CATCH_MODE_PISTON_TIME = 2;
@@ -33,7 +33,7 @@ public class Shooter extends ScibotThread{
         
         //Code to shoot
         if(Hardware.rightJoy.getTrigger()) {
-            if(mode == SHOOT_MODE /*&& isReady()*/) {
+            if(mode == SHOOT_MODE) {
                 shoot();
                 withdraw();
             }

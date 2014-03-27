@@ -53,4 +53,34 @@ public class Hardware {
     //Camera
     public static AxisCamera camera;
     public static AnalogChannel limit;
+    
+    public Hardware(){
+        rightJoy = new Joystick(2);
+        leftJoy = new Joystick(1);
+        remote = new Joystick(3);
+        
+        frontRightTalon = new Talon(9);
+        backRightTalon = new Talon(10);
+        frontLeftTalon = new Talon(1);
+        backLeftTalon = new Talon(2);
+        
+        tempRelay = new Relay(8);
+        
+        dLCD = DriverStationLCD.getInstance();
+        
+//        Hardware.leftSensor = new Ultrasonic(1, 1); //FIX PORT
+//        Hardware.rightSensor = new Ultrasonic(1, 1); //FIX PORT
+//        Hardware.compressor = new Compressor(1, 8); //updated port
+        
+        gateLatch = new DoubleSolenoid(1,2);
+        gateLatch.set(DoubleSolenoid.Value.kOff);
+        piston = new DoubleSolenoid(3,4); //updated port
+        piston.set(DoubleSolenoid.Value.kOff);
+        //Hardware.claw = new DoubleSolenoid(5, 6); //updated port
+        limit = new AnalogChannel(1);
+        
+//        Hardware.relay = new Relay(1); //FIX PORT
+        
+//        Hardware.camera = AxisCamera.getInstance();
+    }
 }

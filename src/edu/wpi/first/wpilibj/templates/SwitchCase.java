@@ -29,6 +29,7 @@ public class SwitchCase extends ScibotThread {
     private boolean compressorState = false; 
     
     private int surfIndex = 0, valIndex = 1;
+    private boolean gate = false;
     
 //get button
     public void function() {
@@ -36,7 +37,6 @@ public class SwitchCase extends ScibotThread {
         for (int i = 1; i <= 13; i++) {
             iLoveRice(i);
         }
-//        clawMotor();
         
         //Show which control surface is selected
         Hardware.dLCD.clear();
@@ -104,6 +104,42 @@ public class SwitchCase extends ScibotThread {
                 if(valIndex > kValues.length-1) valIndex = 0;
                 break;
            
+            default:
+                break;
+        }
+        
+        //Delay
+        Timer.delay(0.3);
+    }
+    
+    public void rice2(int i){
+        if(!Hardware.remote.getRawButton(i)){
+            return;
+        }
+        
+        System.out.println("Button Pressed: " + i);
+        //functions
+        switch(i) {
+            case 1:
+                if(gate){
+                    Hardware.gateLatch.set(Value.kForward);
+                }else{
+                    Hardware.gateLatch.set(Value.kReverse);
+                }
+                Timer.delay(0.5);
+                    Hardware.gateLatch.set(Value.kOff);
+                gate=!gate;
+                break;
+            
+            case 2:
+                Hardware.piston.set(Value.kReverse);
+                break;
+            case 3:
+                Hardware.piston.set(Value.kOff);
+                break;
+            case 4:
+                Hardware.piston.set(Value.kForward);
+                break;
             default:
                 break;
         }

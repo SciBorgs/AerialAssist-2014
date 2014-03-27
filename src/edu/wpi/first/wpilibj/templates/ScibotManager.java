@@ -38,40 +38,13 @@ import java.util.*;
       * This function is called once each time the robot enters autonomous mode.
       */
      
+     Hardware hardware = new Hardware();
      //Increase the array size when threads are added
      private ScibotThread[] teleGroup = {new Drive(), new SwitchCase()};
      private ScibotThread[] autoGroup = {new Vision()};
      private boolean teleRunning, autoRunning;
      
      public void robotInit() {
-        Hardware.rightJoy = new Joystick(2);
-        Hardware.leftJoy = new Joystick(1);
-        Hardware.remote = new Joystick(3);
-        
-        Hardware.frontRightTalon = new Talon(9);
-        Hardware.backRightTalon = new Talon(10);
-        Hardware.frontLeftTalon = new Talon(1);
-        Hardware.backLeftTalon = new Talon(2);
-        
-        Hardware.tempRelay = new Relay(8);
-        
-        Hardware.dLCD = DriverStationLCD.getInstance();
-        
-//        Hardware.leftSensor = new Ultrasonic(1, 1); //FIX PORT
-//        Hardware.rightSensor = new Ultrasonic(1, 1); //FIX PORT
-//        Hardware.compressor = new Compressor(1, 8); //updated port
-        
-        Hardware.gateLatch = new DoubleSolenoid(1,2);
-        Hardware.gateLatch.set(DoubleSolenoid.Value.kOff);
-        Hardware.piston = new DoubleSolenoid(3,4); //updated port
-        Hardware.piston.set(DoubleSolenoid.Value.kOff);
-        //Hardware.claw = new DoubleSolenoid(5, 6); //updated port
-        Hardware.limit = new AnalogChannel(1);
-        
-//        Hardware.relay = new Relay(1); //FIX PORT
-        
-//        Hardware.camera = AxisCamera.getInstance();
-         
          //Establish booleans to represent whether the thread group is running, all classes need to extend
          //ScibotThread
          teleRunning = false;
