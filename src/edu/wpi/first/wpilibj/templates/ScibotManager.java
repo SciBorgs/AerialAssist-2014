@@ -48,7 +48,7 @@ import edu.wpi.first.wpilibj.Timer;
      public void robotInit() {
          //Establish booleans to represent whether the thread group is running, all classes need to extend
          //ScibotThread
-         Hardware.compressor.start();
+//         Hardware.compressor.start();
          teleRunning = false;
          autoRunning = false;
          
@@ -72,12 +72,12 @@ import edu.wpi.first.wpilibj.Timer;
 //        }
          Shooter.withdraw();
          Shooter.shoot();
-         Shooter.withdraw();
-         Hardware.frontRightTalon.set(1);
-         Hardware.backRightTalon.set(1);
-         Hardware.frontLeftTalon.set(-1);
-         Hardware.backLeftTalon.set(-1);
-         Timer.delay(1.5f);
+//         Shooter.withdraw();
+         Hardware.frontRightTalon.set(-1);
+         Hardware.backRightTalon.set(-1);
+         Hardware.frontLeftTalon.set(1);
+         Hardware.backLeftTalon.set(1);
+         Timer.delay(1.75);
          Hardware.frontRightTalon.set(0);
          Hardware.backRightTalon.set(0);
          Hardware.frontLeftTalon.set(0);
@@ -88,6 +88,7 @@ import edu.wpi.first.wpilibj.Timer;
       * This function is called once each time the robot enters operator control.
       */
      public void operatorControl() {
+//         Hardware.drive.setSafetyEnabled(true);
         if(autoRunning){
             autoRunning = stopGroup(autoGroup);
         } 
@@ -95,6 +96,8 @@ import edu.wpi.first.wpilibj.Timer;
             teleRunning = startGroup(teleGroup);
         } 
      }
+     
+     
      
      public boolean startGroup(ScibotThread[] group){
          for(int i = 0; i < group.length; i++){

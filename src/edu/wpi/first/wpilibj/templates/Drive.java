@@ -17,34 +17,35 @@ public class Drive extends ScibotThread {
         rightVal = Hardware.rightJoy.getY();
         leftVal = Hardware.leftJoy.getY();
         
-        leftVal = leftVal*Math.abs(leftVal);
-        rightVal = rightVal*Math.abs(rightVal);
+//        Hardware.drive.tankDrive(leftVal, rightVal);
+//        leftVal = leftVal*Math.abs(leftVal);
+//        rightVal = rightVal*Math.abs(rightVal);
         
-        if(leftVal > 1) leftVal = 1;
-        if(leftVal < -1) leftVal = -1;
-        if(rightVal > 1) rightVal = 1;
-        if(rightVal < -1) rightVal = -1;
+//        if(leftVal > 1) leftVal = 1;
+//        if(leftVal < -1) leftVal = -1;
+//        if(rightVal > 1) rightVal = 1;
+//        if(rightVal < -1) rightVal = -1;
         
-        Hardware.dLCD.println(DriverStationLCD.Line.kUser1, 1, "Right: " + String.valueOf(rightVal));
-        Hardware.dLCD.println(DriverStationLCD.Line.kUser2, 1, "Left: " + String.valueOf(leftVal));
-        Hardware.dLCD.updateLCD();
+//        Hardware.dLCD.println(DriverStationLCD.Line.kUser1, 1, "Right: " + String.valueOf(rightVal));
+//        Hardware.dLCD.println(DriverStationLCD.Line.kUser2, 1, "Left: " + String.valueOf(leftVal));
+//        Hardware.dLCD.updateLCD();
         //System.out.println(rightVal + ", " + leftVal);
         
-        if(direction){
+//        if(direction){
 //        Hardware.drive.tankDrive(leftVal, rightVal);
         Hardware.frontRightTalon.set(rightVal);
         Hardware.backRightTalon.set(rightVal);
         Hardware.frontLeftTalon.set(-leftVal);
         Hardware.backLeftTalon.set(-leftVal);
-        }else{
-        Hardware.frontRightTalon.set(leftVal);
-        Hardware.backRightTalon.set(leftVal);
-        Hardware.frontLeftTalon.set(-rightVal);
-        Hardware.backLeftTalon.set(-rightVal); 
-        }
+//        }else{
+//        Hardware.frontRightTalon.set(leftVal);
+//        Hardware.backRightTalon.set(leftVal);
+//        Hardware.frontLeftTalon.set(-rightVal);
+//        Hardware.backLeftTalon.set(-rightVal); 
+//        }
         //Switch where the "front" of the robot is
-        if(Hardware.leftJoy.getTrigger()) {
-            direction = !direction;
-        }        
+//        if(Hardware.leftJoy.getTrigger()) {
+//            direction = !direction;
+//        }        
     }
 }

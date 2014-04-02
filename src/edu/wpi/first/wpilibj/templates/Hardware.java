@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
+import edu.wpi.first.wpilibj.RobotDrive;
 
 /**
  * Contains all robot components including access to driver station.
@@ -32,7 +33,7 @@ public class Hardware {
     public static Talon backLeftTalon;
     
     //Gyro for drive code
-    public static Gyro gyro;
+//    public static Gyro gyro;
     
     //Joysticks 
     public static Joystick rightJoy;
@@ -41,18 +42,20 @@ public class Hardware {
     
     public static DriverStationLCD dLCD;
     
-    public static Ultrasonic leftSensor;
-    public static Ultrasonic rightSensor;
+//    public static Ultrasonic leftSensor;
+//    public static Ultrasonic rightSensor;
     
     public static Compressor compressor;
-    public static Relay tempRelay;
+//    public static Relay tempRelay;
     
     public static DoubleSolenoid piston;
     public static DoubleSolenoid gateLatch;
     //public static Compressor compress = new Compressor(1, 2);
     //Camera
-    public static AxisCamera camera;
-    public static AnalogChannel limit;
+//    public static AxisCamera camera;
+//    public static AnalogChannel limit;
+    
+    public static RobotDrive drive;
     
     public Hardware(){
         rightJoy = new Joystick(2);
@@ -63,7 +66,7 @@ public class Hardware {
         backRightTalon = new Talon(10);
         frontLeftTalon = new Talon(1);
         backLeftTalon = new Talon(2);
-        
+//        drive = new RobotDrive(1,2,9,10);
 //        tempRelay = new Relay(1);
         
         dLCD = DriverStationLCD.getInstance();
@@ -77,7 +80,7 @@ public class Hardware {
         piston = new DoubleSolenoid(3,4); //updated port
         piston.set(DoubleSolenoid.Value.kOff);
         //Hardware.claw = new DoubleSolenoid(5, 6); //updated port
-        limit = new AnalogChannel(1);
+//        limit = new AnalogChannel(1);
         
 //        Hardware.relay = new Relay(1); //FIX PORT
         

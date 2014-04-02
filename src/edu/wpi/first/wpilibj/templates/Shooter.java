@@ -60,9 +60,9 @@ public class Shooter extends ScibotThread{
         //withdraw piston
         Hardware.piston.set(kReverse);
         Timer.delay(PISTON_DOWN_TIME);
+ 
         //close latch
         Hardware.gateLatch.set(kForward);
-        
         Timer.delay(LATCH_TIME); //same time is used for gatelatch
 //        Hardware.gateLatch.set(kOff);
     }

@@ -51,7 +51,7 @@ public class SwitchCase extends ScibotThread {
         
         //Show which control surface is selected
         Hardware.dLCD.clear();
-        Hardware.dLCD.println(DriverStationLCD.Line.kUser3, 1, "gate latch: " + Hardware.gateLatch.toString());
+        Hardware.dLCD.println(DriverStationLCD.Line.kUser3, 1, "gate latch: " + Hardware.gateLatch.get());
         Hardware.dLCD.println(DriverStationLCD.Line.kUser4, 1, "Pressure value: " + Hardware.compressor.getPressureSwitchValue());
         Hardware.dLCD.println(DriverStationLCD.Line.kUser5, 1, "Pressure enabled: " + Hardware.compressor.enabled());
 //        Hardware.dLCD.println(DriverStationLCD.Line.kUser6, 1, "piston val: " + Hardware.piston.get());
@@ -92,11 +92,11 @@ public class SwitchCase extends ScibotThread {
 //                    System.out.println(compressorState);
                     if(compressorState == false) {
 //                        Hardware.compressor.setRelayValue(Relay.Value.kOn);
-                        Hardware.tempRelay.set(Relay.Value.kForward);
+//                        Hardware.tempRelay.set(Relay.Value.kForward);
                         compressorState = !compressorState;
                     }
                     else{
-                        Hardware.tempRelay.set(Relay.Value.kOff);
+//                        Hardware.tempRelay.set(Relay.Value.kOff);
 //                        Hardware.compressor.setRelayValue(Relay.Value.kOff);
                         compressorState = !compressorState;
                     }
