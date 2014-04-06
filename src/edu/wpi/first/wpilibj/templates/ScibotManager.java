@@ -71,7 +71,7 @@ import edu.wpi.first.wpilibj.Timer;
 //            autoRunning = startGroup(autoGroup);
 //        }
          Shooter.withdraw();
-         Shooter.shoot();
+//         Shooter.shoot();
 //         Shooter.withdraw();
          Hardware.frontRightTalon.set(-1);
          Hardware.backRightTalon.set(-1);

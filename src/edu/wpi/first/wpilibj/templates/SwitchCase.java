@@ -127,7 +127,6 @@ public class SwitchCase extends ScibotThread {
         if(!Hardware.remote.getRawButton(i)){
             return;
         }
-        
 //        System.out.println("Button Pressed: " + i);
         //functions
         switch(i) {

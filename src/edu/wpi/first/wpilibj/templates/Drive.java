@@ -33,10 +33,20 @@ public class Drive extends ScibotThread {
         
 //        if(direction){
 //        Hardware.drive.tankDrive(leftVal, rightVal);
-        Hardware.frontRightTalon.set(rightVal);
-        Hardware.backRightTalon.set(rightVal);
-        Hardware.frontLeftTalon.set(-leftVal);
-        Hardware.backLeftTalon.set(-leftVal);
+        if(leftVal > 0.1 || leftVal < -0.1){
+            Hardware.frontRightTalon.set(leftVal);
+            Hardware.backRightTalon.set(leftVal);
+        }else{
+            Hardware.frontRightTalon.set(0);
+            Hardware.backRightTalon.set(0);
+        }
+        if(rightVal > 0.1 || rightVal < -0.1){
+            Hardware.frontLeftTalon.set(-rightVal);
+            Hardware.backLeftTalon.set(-rightVal);
+        }else{
+            Hardware.frontLeftTalon.set(0);
+            Hardware.backLeftTalon.set(0);
+        }
 //        }else{
 //        Hardware.frontRightTalon.set(leftVal);
 //        Hardware.backRightTalon.set(leftVal);

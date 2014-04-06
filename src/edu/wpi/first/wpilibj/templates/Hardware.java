@@ -52,10 +52,9 @@ public class Hardware {
     public static DoubleSolenoid gateLatch;
     //public static Compressor compress = new Compressor(1, 2);
     //Camera
-//    public static AxisCamera camera;
-//    public static AnalogChannel limit;
     
     public static RobotDrive drive;
+//    public static Relay topMotor;
     
     public Hardware(){
         rightJoy = new Joystick(2);
@@ -83,7 +82,5 @@ public class Hardware {
 //        limit = new AnalogChannel(1);
         
 //        Hardware.relay = new Relay(1); //FIX PORT
-        
-//        Hardware.camera = AxisCamera.getInstance();
     }
 }
