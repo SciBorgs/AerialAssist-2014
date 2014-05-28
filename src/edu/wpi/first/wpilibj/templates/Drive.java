@@ -14,6 +14,7 @@ public class Drive extends ScibotThread {
     
     public void function() {   
         //Drive 
+        //getting right and left joystick Y (forward) values.
         rightVal = Hardware.rightJoy.getY();
         leftVal = Hardware.leftJoy.getY();
         
@@ -33,6 +34,9 @@ public class Drive extends ScibotThread {
         
 //        if(direction){
 //        Hardware.drive.tankDrive(leftVal, rightVal);
+        //leaving 0.1 of room before robot reacts to  left joystick
+        //if left joystick is moved more than 0.1 in any direction, it's value is assigned
+        //otherwise its zero
         if(leftVal > 0.1 || leftVal < -0.1){
             Hardware.frontRightTalon.set(leftVal);
             Hardware.backRightTalon.set(leftVal);
@@ -40,6 +44,7 @@ public class Drive extends ScibotThread {
             Hardware.frontRightTalon.set(0);
             Hardware.backRightTalon.set(0);
         }
+        //same deal but for right joystick
         if(rightVal > 0.1 || rightVal < -0.1){
             Hardware.frontLeftTalon.set(-rightVal);
             Hardware.backLeftTalon.set(-rightVal);
