@@ -14,18 +14,19 @@
 // */
 //public class GyroDrive extends ScibotThread {
 //      
-////    //Constant variables for ANGLE
+////  //Constant variables for ANGLE
 //    public static final double ANGLE = 45;
 //    public static final double BUFFER = 5;
 //    public static final double SPEED = 0.5;
-////
-//    private boolean check = true;
-//    private double startVal = 0;
-//    private double dir = 0;
+
+//    //Variables to be used in quick turning 
+//    private boolean check = true; //Checks if robot is in motion (already turning)
+//    private double startVal = 0; //Will be changed to the current gyro angle
+//    private double dir = 0; //Direction in which the robot is going to turn
 //    
-//    
+//    //Starts everything
 //    public void start() {
-//        Hardware.gyro.reset();
+//        Hardware.gyro.reset(); //Resets gyro value to 0
 //        super.start();
 //    }
 //    
