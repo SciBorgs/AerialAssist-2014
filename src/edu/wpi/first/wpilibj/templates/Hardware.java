@@ -57,6 +57,8 @@ public class Hardware {
 //    public static Relay topMotor;
     
     public Hardware(){
+        //initializing all the harware
+        //and assigning pins/ports
         rightJoy = new Joystick(2);
         leftJoy = new Joystick(1);
         remote = new Joystick(3);
