@@ -31,31 +31,33 @@
 //    }
 //    
 //    public void function() {
-//
-//        Hardware.dLCD.println(DriverStationLCD.Line.kUser6, 1, String.valueOf(Hardware.gyro.getAngle()));
-//        Hardware.dLCD.updateLCD();
+//        
+          //I'm assuming this has to do with the gyro station
+//        Hardware.dLCD.println(DriverStationLCD.Line.kUser6, 1, String.valueOf(Hardware.gyro.getAngle())); //prints angle of gyro on driver station
+//        Hardware.dLCD.updateLCD(); //constantly updates as values change...?
 //        
 //        double rightVal, leftVal;
 //        
+//        //Checks if gyro is already turning
 //        if(check) {
 //            if(Hardware.remote.getRawButton(11)) {
-//                check = false;
-//                startVal = Hardware.gyro.getAngle();
-//                dir = 1;
+//                check = false; //turns check to false so that you can't repeatedly press the quick turning button
+//                startVal = Hardware.gyro.getAngle(); //sets current gyro angle to startVal
+//                dir = 1; //sets direction
 //            }
 //            else if(Hardware.remote.getRawButton(12)) {
-//                check = false;
-//                startVal = Hardware.gyro.getAngle();
-//                dir = -1;
+//                check = false; //turns check to false so that you can't repeatedly press the quick turning button
+//                startVal = Hardware.gyro.getAngle(); //sets current gyro angle to startVal
+//                dir = -1; //sets direction
 //            }
 //        }
 //        else {
-//            if(Math.abs(Hardware.gyro.getAngle() - (startVal + ANGLE*dir)) > BUFFER) {
+//            if(Math.abs(Hardware.gyro.getAngle() - (startVal + ANGLE*dir)) > BUFFER) { 
 //                if(Math.abs(Hardware.rightJoy.getY()) < 0.1 && Math.abs(Hardware.leftJoy.getY()) < 0.1) {
-//                    Hardware.frontRightTalon.set(-SPEED * dir); 
-//                    Hardware.backRightTalon.set(-SPEED * dir);
-//                    Hardware.frontLeftTalon.set(SPEED * dir);
-//                    Hardware.frontLeftTalon.set(SPEED * dir);
+//                    Hardware.frontRightTalon.set(-SPEED * dir); //sets talon to the speed corrisponding to the button that was pressed
+//                    Hardware.backRightTalon.set(-SPEED * dir); //same
+//                    Hardware.frontLeftTalon.set(SPEED * dir); //same
+//                    Hardware.frontLeftTalon.set(SPEED * dir); //same
 //                }
 //                else {
 //                    check = false;
@@ -87,11 +89,11 @@
 ////        }
 ////
 ////        if ((gyroState + 45 == Hardware.gyro.getAngle() || 360 + (gyroState - 45) == Hardware.gyro.getAngle()) && !check) {
-////            Hardware.frontLeftTalon.set(0);
-////            Hardware.backLeftTalon.set(0);
+////            Hardware.frontLeftTalon.set(0); //stops the turning once the robot rotates 45 degrees
+////            Hardware.backLeftTalon.set(0); //same
 ////
-////            Hardware.frontRightTalon.set(0);
-////            Hardware.backRightTalon.set(0);
+////            Hardware.frontRightTalon.set(0); //same
+////            Hardware.backRightTalon.set(0); //same
 ////            check = true;
 ////        }
 //    }
