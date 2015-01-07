@@ -38,13 +38,14 @@ import edu.wpi.first.wpilibj.Timer;
      /**
       * This function is called once each time the robot enters autonomous mode.
       */
-     
+     //Creates a Hardware object
      Hardware hardware = new Hardware();
      //Increase the array size when threads are added
      private ScibotThread[] teleGroup = {new Drive(), new SwitchCase()};
      private ScibotThread[] autoGroup = {};
      private boolean teleRunning, autoRunning;
      
+     //Initializes robot
      public void robotInit() {
          //Establish booleans to represent whether the thread group is running, all classes need to extend
          //ScibotThread
@@ -54,6 +55,7 @@ import edu.wpi.first.wpilibj.Timer;
          
      }
      
+     //Disabels current mode
      public void disabled() {
         if(teleRunning){
             teleRunning = stopGroup(teleGroup);
